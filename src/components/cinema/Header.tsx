@@ -13,7 +13,7 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-20 h-16 border-b border-hairline bg-surface lg:pl-60">
       <div className="mx-auto flex h-full max-w-[1600px] items-center gap-3 px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2 lg:hidden">
-          <img src="./../../../public/logo.png" className="h-12 w-12" alt="Logo" />
+          <img src="./logo.png" className="h-12 w-12" alt="Logo" />
         </Link>
 
         <nav className="ml-2 hidden xl:flex items-center gap-1 text-sm text-white/60">
