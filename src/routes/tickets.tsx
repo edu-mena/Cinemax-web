@@ -19,6 +19,17 @@ const SEATS = Array.from({ length: 40 }, (_, i) => {
 });
 const TAKEN = new Set(["A3", "B1", "C4", "D7", "E2"]);
 
+// Agrupa os assentos por fileira uma única vez: [["A", ["A1"…"A8"]], ["B", […]], …]
+const ROWS: [string, string[]][] = (() => {
+  const map = new Map<string, string[]>();
+  SEATS.forEach((s) => {
+    const row = s[0];
+    if (!map.has(row)) map.set(row, []);
+    map.get(row)!.push(s);
+  });
+  return Array.from(map.entries());
+})();
+
 function Tickets() {
   const [step, setStep] = useState<Step>("Movie");
   const [movieId, setMovieId] = useState<string | null>(null);
@@ -40,6 +51,7 @@ function Tickets() {
 
   const goto = (s: Step) => setStep(s);
   const reset = () => { setStep("Movie"); setMovieId(null); setCinemaId(null); setDate(null); setSessionId(null); setSeats([]); };
+  const toggleSeat = (id: string) => setSeats((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
@@ -93,29 +105,53 @@ function Tickets() {
             )}
             {step === "Seats" && (
               <div>
-                <h2 className="text-lg font-medium text-white">Pick your seats</h2>
-                <p className="mt-1 text-sm text-white/50">{seats.length} selected</p>
-                <div className="mt-6 rounded-xl border border-hairline bg-surface-2 p-4">
-                  <div className="mx-auto mb-6 h-1 max-w-md rounded-full bg-white/20" aria-label="Screen" />
-                  <div className="grid grid-cols-8 gap-2 max-w-md mx-auto">
-                    {SEATS.map((s) => {
-                      const taken = TAKEN.has(s); const picked = seats.includes(s);
-                      return (
-                        <button
-                          key={s}
-                          disabled={taken}
-                          onClick={() => setSeats(picked ? seats.filter((x) => x !== s) : [...seats, s])}
-                          aria-label={`Seat ${s}${taken ? " taken" : ""}`}
-                          className={`aspect-square rounded-md text-[10px] font-medium transition ${
-                            taken ? "cursor-not-allowed bg-surface-3 text-white/20" :
-                            picked ? "bg-white text-black" :
-                            "bg-surface text-white/60 hover:bg-surface-3"
-                          }`}
-                        >{s}</button>
-                      );
-                    })}
+                <div className="flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <h2 className="text-lg font-medium text-white">Pick your seats</h2>
+                    <p className="mt-1 text-sm text-white/50">
+                      {seats.length} selected{session ? ` · €${(seats.length * session.price).toFixed(2)}` : ""}
+                    </p>
+                  </div>
+                  <SeatLegend />
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-hairline bg-surface-2 p-5 sm:p-8">
+                  {/* Tela + projeção, vista de cima */}
+                  <div className="relative mx-auto mb-8 flex max-w-md flex-col items-center">
+                    <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-white/5 via-white/70 to-white/5 shadow-[0_0_30px_4px_rgba(255,255,255,0.25)]" />
+                    <span className="mt-2 text-[10px] uppercase tracking-[0.35em] text-white/30">Screen</span>
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute left-1/2 top-2 -z-0 h-56 w-full -translate-x-1/2 sm:h-64"
+                      style={{
+                        background: "linear-gradient(to bottom, rgba(255,255,255,0.09), rgba(255,255,255,0) 75%)",
+                        clipPath: "polygon(40% 0%, 60% 0%, 96% 100%, 4% 100%)",
+                      }}
+                    />
+                  </div>
+
+                  {/* Fileiras de cadeiras, com corredor central */}
+                  <div className="relative mx-auto flex max-w-md flex-col gap-1.5 sm:gap-2">
+                    {ROWS.map(([row, ids]) => (
+                      <div key={row} className="flex items-center justify-center gap-1 sm:gap-1.5">
+                        <span className="w-3.5 shrink-0 text-center text-[9px] text-white/30 sm:w-4 sm:text-[10px]">{row}</span>
+                        <div className="flex gap-1 sm:gap-1.5">
+                          {ids.slice(0, 4).map((s) => (
+                            <SeatButton key={s} id={s} taken={TAKEN.has(s)} picked={seats.includes(s)} onToggle={toggleSeat} />
+                          ))}
+                        </div>
+                        <div className="w-3 shrink-0 sm:w-4" aria-hidden />
+                        <div className="flex gap-1 sm:gap-1.5">
+                          {ids.slice(4).map((s) => (
+                            <SeatButton key={s} id={s} taken={TAKEN.has(s)} picked={seats.includes(s)} onToggle={toggleSeat} />
+                          ))}
+                        </div>
+                        <span className="w-3.5 shrink-0 text-center text-[9px] text-white/30 sm:w-4 sm:text-[10px]">{row}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
+
                 <div className="mt-6 flex justify-between">
                   <button onClick={() => goto("Time")} className="rounded-xl border border-hairline px-4 py-2 text-sm text-white/70 hover:bg-surface-2">Back</button>
                   <button onClick={() => goto("Summary")} disabled={!seats.length} className="rounded-xl bg-white px-4 py-2 text-sm font-medium text-black disabled:opacity-40">Continue</button>
@@ -173,6 +209,43 @@ function Choice({ title, items, onPick, back }: { title: string; items: { id: st
         ))}
       </ul>
       {back && <button onClick={back} className="mt-6 rounded-xl border border-hairline px-4 py-2 text-sm text-white/70 hover:bg-surface-2">Back</button>}
+    </div>
+  );
+}
+
+function SeatButton({ id, taken, picked, onToggle }: { id: string; taken: boolean; picked: boolean; onToggle: (id: string) => void }) {
+  return (
+    <button
+      type="button"
+      disabled={taken}
+      onClick={() => onToggle(id)}
+      title={id}
+      aria-label={`Seat ${id}${taken ? " taken" : picked ? " selected" : " available"}`}
+      className={`relative z-10 h-6 w-6 rounded-t-md rounded-b-[3px] text-[9px] font-medium leading-none transition sm:h-7 sm:w-7 sm:text-[10px] ${
+        taken
+          ? "cursor-not-allowed bg-surface-3/50 text-white/15"
+          : picked
+          ? "bg-white text-black shadow-[0_0_0_2px_rgba(255,255,255,0.35)]"
+          : "bg-surface text-white/50 hover:bg-surface-3 hover:text-white"
+      }`}
+    >
+      {id.slice(1)}
+    </button>
+  );
+}
+
+function SeatLegend() {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-white/50">
+      <span className="flex items-center gap-1.5">
+        <span className="h-3 w-3 rounded-[3px] border border-hairline bg-surface" /> Available
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="h-3 w-3 rounded-[3px] bg-white" /> Selected
+      </span>
+      <span className="flex items-center gap-1.5">
+        <span className="h-3 w-3 rounded-[3px] bg-surface-3/50" /> Taken
+      </span>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { Play, Info, Sparkles } from "lucide-react";
 import {
   featuredMovies, trendingMovies, comingSoon, movies, genres,
 } from "@/data/data";
-import { MovieCard } from "@/components/cinema/MovieCard";
+import { MovieCarousel } from "@/components/cinema/MovieCarousel";
 import { SectionHeader } from "@/components/cinema/SectionHeader";
 import { PosterPlaceholder } from "@/components/cinema/PosterPlaceholder";
 
@@ -15,7 +15,6 @@ function Home() {
   const recommended = movies.slice(6, 12);
   return (
     <div className="space-y-16">
-      {/* HERO */}
       {/* HERO */}
       <motion.section
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
@@ -49,23 +48,17 @@ function Home() {
 
       <section>
         <SectionHeader title="Featured" subtitle="Hand-picked from our editors" href="/movies" />
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {featuredMovies.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-        </div>
+        <MovieCarousel movies={featuredMovies} />
       </section>
 
       <section>
         <SectionHeader title="Trending" subtitle="What people are watching now" href="/movies" />
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {trendingMovies.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-        </div>
+        <MovieCarousel movies={trendingMovies} />
       </section>
 
       <section>
         <SectionHeader title="Coming soon" subtitle="On the horizon" href="/coming-soon" />
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
-          {comingSoon.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-        </div>
+        <MovieCarousel movies={comingSoon} />
       </section>
 
       <section>
@@ -81,9 +74,7 @@ function Home() {
 
       <section>
         <SectionHeader title="Recommended for you" subtitle="Based on films you've loved" href="/movies" />
-        <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-          {recommended.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
-        </div>
+        <MovieCarousel movies={recommended} />
       </section>
     </div>
   );

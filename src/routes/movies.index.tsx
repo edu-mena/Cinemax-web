@@ -11,6 +11,21 @@ export const Route = createFileRoute("/movies/")({
 
 const PER_PAGE = 8;
 
+// Gera a lista de páginas a mostrar, com "..." quando necessário
+function getPageItems(current: number, total: number, siblings = 1): (number | "ellipsis")[] {
+  const items: (number | "ellipsis")[] = [];
+  const start = Math.max(2, current - siblings);
+  const end = Math.min(total - 1, current + siblings);
+
+  items.push(1);
+  if (start > 2) items.push("ellipsis");
+  for (let i = start; i <= end; i++) items.push(i);
+  if (end < total - 1) items.push("ellipsis");
+  if (total > 1) items.push(total);
+
+  return items;
+}
+
 function MoviesPage() {
   const [q, setQ] = useState("");
   const [genre, setGenre] = useState<string | null>(null);
@@ -33,6 +48,7 @@ function MoviesPage() {
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const current = Math.min(page, totalPages);
   const paged = filtered.slice((current - 1) * PER_PAGE, current * PER_PAGE);
+  const pageItems = useMemo(() => getPageItems(current, totalPages, 1), [current, totalPages]);
 
   return (
     <div className="space-y-8">
@@ -91,12 +107,30 @@ function MoviesPage() {
       )}
 
       {totalPages > 1 && (
-        <nav className="flex items-center justify-center gap-1 pt-4" aria-label="Pagination">
-          <button onClick={() => setPage(Math.max(1, current - 1))} disabled={current === 1} className="rounded-lg border border-hairline bg-surface px-3 py-1.5 text-sm text-white/70 disabled:opacity-40 hover:bg-surface-2">Prev</button>
-          {Array.from({ length: totalPages }).map((_, i) => (
-            <button key={i} onClick={() => setPage(i + 1)} className={`h-9 min-w-9 rounded-lg border px-2 text-sm transition ${current === i + 1 ? "border-white bg-white text-black" : "border-hairline bg-surface text-white/70 hover:bg-surface-2"}`}>{i + 1}</button>
-          ))}
-          <button onClick={() => setPage(Math.min(totalPages, current + 1))} disabled={current === totalPages} className="rounded-lg border border-hairline bg-surface px-3 py-1.5 text-sm text-white/70 disabled:opacity-40 hover:bg-surface-2">Next</button>
+        <nav className="flex flex-wrap items-center justify-center gap-1 pt-4" aria-label="Pagination">
+          <button
+            onClick={() => setPage(Math.max(1, current - 1))}
+            disabled={current === 1}
+            className="rounded-lg border border-hairline bg-surface px-3 py-1.5 text-sm text-white/70 disabled:opacity-40 hover:bg-surface-2"
+          >Prev</button>
+
+          {pageItems.map((item, i) =>
+            item === "ellipsis" ? (
+              <span key={`ellipsis-${i}`} className="px-2 text-sm text-white/40 select-none">…</span>
+            ) : (
+              <button
+                key={item}
+                onClick={() => setPage(item)}
+                className={`h-9 min-w-9 rounded-lg border px-2 text-sm transition ${current === item ? "border-white bg-white text-black" : "border-hairline bg-surface text-white/70 hover:bg-surface-2"}`}
+              >{item}</button>
+            )
+          )}
+
+          <button
+            onClick={() => setPage(Math.min(totalPages, current + 1))}
+            disabled={current === totalPages}
+            className="rounded-lg border border-hairline bg-surface px-3 py-1.5 text-sm text-white/70 disabled:opacity-40 hover:bg-surface-2"
+          >Next</button>
         </nav>
       )}
     </div>
