@@ -2,22 +2,31 @@ import { useEffect, useRef } from "react";
 import type { Movie } from "@/data/data";
 import { MovieCard } from "./MovieCard";
 
+const RESUME_DELAY = 5500; // pausa por 5.5s a partir da última interação do usuário
+
 export function MovieCarousel({
   movies,
-  intervalMs = 2000,
+  intervalMs = 3000,
 }: {
   movies: Movie[];
   intervalMs?: number;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
-  const pausedRef = useRef(false);
+  const pausedUntilRef = useRef(0);
+  const isProgrammaticScrollRef = useRef(false);
+  const programmaticScrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Chamado em qualquer interação manual do usuário (arrastar, tocar, rolar com o dedo/scroll do mouse)
+  const registerInteraction = () => {
+    pausedUntilRef.current = Date.now() + RESUME_DELAY;
+  };
 
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el || movies.length === 0) return;
 
-    const id = setInterval(() => {
-      if (pausedRef.current) return;
+    const autoplay = setInterval(() => {
+      if (Date.now() < pausedUntilRef.current) return;
 
       const card = el.querySelector<HTMLElement>("[data-carousel-card]");
       const gap = 20; // deve bater certo com o gap-5 (20px) abaixo
@@ -25,24 +34,41 @@ export function MovieCarousel({
 
       const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
 
+      // Marca como scroll programático para que o listener de scroll abaixo
+      // não confunda esse movimento automático com uma interação do usuário.
+      isProgrammaticScrollRef.current = true;
+      if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+      programmaticScrollTimeout.current = setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+      }, 600); // tempo suficiente pro scroll "smooth" terminar
+
       el.scrollTo({
         left: atEnd ? 0 : el.scrollLeft + step,
         behavior: "smooth",
       });
     }, intervalMs);
 
-    return () => clearInterval(id);
+    // Detecta rolagem manual (arraste, trackpad, roda do mouse) que não veio do autoplay
+    const handleScroll = () => {
+      if (isProgrammaticScrollRef.current) return;
+      registerInteraction();
+    };
+    el.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearInterval(autoplay);
+      el.removeEventListener("scroll", handleScroll);
+      if (programmaticScrollTimeout.current) clearTimeout(programmaticScrollTimeout.current);
+    };
   }, [movies, intervalMs]);
 
   return (
     <div
       ref={scrollerRef}
-      onMouseEnter={() => { pausedRef.current = true; }}
-      onMouseLeave={() => { pausedRef.current = false; }}
-      onTouchStart={() => { pausedRef.current = true; }}
-      onTouchEnd={() => { pausedRef.current = false; }}
-      onPointerDown={() => { pausedRef.current = true; }}
-      onPointerUp={() => { pausedRef.current = false; }}
+      onPointerDown={registerInteraction}
+      onTouchStart={registerInteraction}
+      onWheel={registerInteraction}
+      onMouseEnter={registerInteraction}
       className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-2 scrollbar-none"
     >
       {movies.map((m, i) => (
