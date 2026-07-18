@@ -6,6 +6,7 @@ import { PosterPlaceholder } from "@/components/cinema/PosterPlaceholder";
 import { RatingStars } from "@/components/cinema/RatingStars";
 import { ReviewCard } from "@/components/cinema/ReviewCard";
 import { MovieCard } from "@/components/cinema/MovieCard";
+import { getYoutubeEmbedUrl } from "@/lib/getYoutubeEmbedUrl";
 import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/movies/$id")({
@@ -37,6 +38,7 @@ function MovieDetail() {
   const filmReviews = reviewsForMovie(movie.id);
   const related = movies.filter((m) => m.id !== movie.id && m.genres.some((g) => movie.genres.includes(g))).slice(0, 5);
   const avg = filmReviews.length ? filmReviews.reduce((a, r) => a + r.rating, 0) / filmReviews.length : movie.rating;
+  const trailerEmbed = getYoutubeEmbedUrl(movie.trailer);
 
   const [myRating, setMyRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -49,15 +51,15 @@ function MovieDetail() {
 
       <motion.section
         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}
-        className="relative overflow-hidden rounded-3xl border border-hairline bg-surface"
+        className="relative overflow-hidden rounded-none border-0 bg-transparent sm:rounded-3xl sm:border sm:border-hairline sm:bg-surface"
       >
-        <div className="relative h-56 sm:h-72">
+        <div className="relative hidden h-56 sm:block sm:h-72">
           <div className="absolute inset-0 poster-gradient-b" />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/60 to-transparent" />
         </div>
-        <div className="grid gap-8 p-6 sm:p-10 md:grid-cols-[240px_1fr] -mt-24 sm:-mt-32 relative">
+        <div className="relative grid gap-8 p-0 sm:-mt-32 sm:grid-cols-[240px_1fr] sm:p-10">
           <div className="w-40 sm:w-full">
-            <PosterPlaceholder seed={movie.id} title={movie.title} />
+            <PosterPlaceholder seed={movie.id} title={movie.title} poster={movie.poster} />
           </div>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 text-xs text-white/50">
@@ -91,13 +93,25 @@ function MovieDetail() {
 
       <section>
         <h2 className="mb-4 text-xl font-semibold tracking-tight text-white">Trailer</h2>
-        <div className="relative aspect-video overflow-hidden rounded-2xl border border-hairline poster-gradient-c">
-          <div className="absolute inset-0 grid place-items-center">
-            <button className="grid h-16 w-16 place-items-center rounded-full bg-white text-black transition hover:scale-105">
-              <Play className="h-6 w-6 fill-current" strokeWidth={1.5} />
-            </button>
+        {trailerEmbed ? (
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-hairline bg-black">
+            <iframe
+              src={trailerEmbed}
+              title={`${movie.title} trailer`}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full"
+            />
           </div>
-        </div>
+        ) : (
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-hairline poster-gradient-c">
+            <div className="absolute inset-0 grid place-items-center">
+              <button className="grid h-16 w-16 place-items-center rounded-full bg-white text-black transition hover:scale-105">
+                <Play className="h-6 w-6 fill-current" strokeWidth={1.5} />
+              </button>
+            </div>
+          </div>
+        )}
       </section>
 
       <section className="grid gap-8 lg:grid-cols-[1fr_360px]">
