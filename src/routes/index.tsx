@@ -41,7 +41,7 @@ function Home() {
         >
           <span className="text-[11px] uppercase tracking-[0.35em] text-white/40">CINEMAX WEB</span>
           <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
-            A cinemax bem mais <br/> perto si e da sua família.
+            A CINEMAX bem mais <br/> perto si e da sua família.
           </h1>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-base">
             Descobre filmes, lê críticas e reserva o teu lugar — tudo num só lugar.
