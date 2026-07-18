@@ -1,7 +1,9 @@
 import { Construction } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export function UnderDevelopment({ title }: { title: string }) {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -14,7 +16,7 @@ export function UnderDevelopment({ title }: { title: string }) {
       </div>
       <h1 className="mt-8 text-2xl font-semibold tracking-tight text-white">{title}</h1>
       <p className="mt-3 text-sm text-white/50">
-        🚧 Em Desenvolvimento — this section is being carefully crafted. Check back soon.
+        {t("underDevelopment.message")}
       </p>
     </motion.div>
   );

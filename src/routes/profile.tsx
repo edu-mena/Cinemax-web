@@ -1,15 +1,17 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Settings as SettingsIcon, Film, MessageSquare, Clock, Star } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { currentUser, getMovie, reviews as allReviews, comments as allComments } from "@/data/data";
 import { MovieCard } from "@/components/cinema/MovieCard";
 import { ReviewCard } from "@/components/cinema/ReviewCard";
 
 export const Route = createFileRoute("/profile")({
-  head: () => ({ meta: [{ title: `${currentUser.name} — Lumen`}, { name: "description", content: "Your cinema profile." }] }),
+  head: () => ({ meta: [{ title: `${currentUser.name} — Cinemax`}, { name: "description", content: "Your cinema profile." }] }),
   component: Profile,
 });
 
 function Profile() {
+  const { t } = useTranslation();
   const favs = currentUser.favoriteMovies.map(getMovie).filter(Boolean);
   const recent = currentUser.recentlyViewed.map(getMovie).filter(Boolean);
   const myReviews = allReviews.filter((r) => r.userId === currentUser.id);
@@ -31,37 +33,37 @@ function Profile() {
             </div>
           </div>
           <Link to="/settings" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
-            <SettingsIcon className="h-4 w-4 text-white/70" strokeWidth={1.5} /> Settings
+            <SettingsIcon className="h-4 w-4 text-white/70" strokeWidth={1.5} /> {t("profile.settings")}
           </Link>
         </div>
 
         <dl className="mt-8 grid grid-cols-2 divide-x divide-y divide-hairline overflow-hidden rounded-2xl border border-hairline sm:grid-cols-4 sm:divide-y-0">
-          <Stat icon={<Film className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Watched" v={currentUser.stats.watched} />
-          <Stat icon={<Clock className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Hours" v={currentUser.stats.hours} />
-          <Stat icon={<Star className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Reviews" v={currentUser.stats.reviews} />
-          <Stat icon={<MessageSquare className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Comments" v={currentUser.stats.comments} />
+          <Stat icon={<Film className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k={t("profile.watched")} v={currentUser.stats.watched} />
+          <Stat icon={<Clock className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k={t("profile.hours")} v={currentUser.stats.hours} />
+          <Stat icon={<Star className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k={t("profile.reviews")} v={currentUser.stats.reviews} />
+          <Stat icon={<MessageSquare className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k={t("profile.comments")} v={currentUser.stats.comments} />
         </dl>
       </header>
 
-      <Section title="Favorite films">
+      <Section title={t("profile.favoriteFilms")}>
         <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
           {favs.map((m, i) => m && <MovieCard key={m.id} movie={m} index={i} />)}
         </div>
       </Section>
 
-      <Section title="Recently viewed">
+      <Section title={t("profile.recentlyViewed")}>
         <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-4">
           {recent.map((m, i) => m && <MovieCard key={m.id} movie={m} index={i} />)}
         </div>
       </Section>
 
-      <Section title="Your reviews">
+      <Section title={t("profile.yourReviews")}>
         {myReviews.length ? (
           <div className="grid gap-4 lg:grid-cols-2">{myReviews.map((r) => <ReviewCard key={r.id} review={r} />)}</div>
-        ) : <Empty text="No reviews yet." />}
+        ) : <Empty text={t("profile.noReviewsYet")} />}
       </Section>
 
-      <Section title="Your comments">
+      <Section title={t("profile.yourComments")}>
         {myComments.length ? (
           <ul className="space-y-3">
             {myComments.map((c) => (
@@ -71,7 +73,7 @@ function Profile() {
               </li>
             ))}
           </ul>
-        ) : <Empty text="No comments yet." />}
+        ) : <Empty text={t("profile.noCommentsYet")} />}
       </Section>
     </div>
   );

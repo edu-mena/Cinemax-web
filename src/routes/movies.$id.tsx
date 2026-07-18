@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Play, Clock, Calendar, Ticket as TicketIcon, ArrowLeft } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getMovie, reviewsForMovie, movies, currentUser } from "@/data/data";
 import { PosterPlaceholder } from "@/components/cinema/PosterPlaceholder";
 import { RatingStars } from "@/components/cinema/RatingStars";
@@ -8,6 +9,7 @@ import { ReviewCard } from "@/components/cinema/ReviewCard";
 import { MovieCard } from "@/components/cinema/MovieCard";
 import { getYoutubeEmbedUrl } from "@/lib/getYoutubeEmbedUrl";
 import { motion } from "framer-motion";
+import i18n from "@/i18n/config";
 
 export const Route = createFileRoute("/movies/$id")({
   loader: ({ params }) => {
@@ -18,22 +20,28 @@ export const Route = createFileRoute("/movies/$id")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.movie.title} — Lumen` },
+          { title: `${loaderData.movie.title} — Cinemax` },
           { name: "description", content: loaderData.movie.synopsis },
         ]
-      : [{ title: "Film not found — Lumen" }, { name: "robots", content: "noindex" }],
+      : [{ title: `${i18n.t("movieDetail.notFoundTitle")} — Cinemax` }, { name: "robots", content: "noindex" }],
   }),
-  notFoundComponent: () => (
-    <div className="mx-auto max-w-md py-24 text-center">
-      <h1 className="text-2xl font-semibold text-white">Film not found</h1>
-      <p className="mt-2 text-sm text-white/50">This title isn't in our catalog.</p>
-      <Link to="/movies" className="mt-6 inline-block rounded-xl bg-white px-4 py-2 text-sm font-medium text-black">Browse movies</Link>
-    </div>
-  ),
+  notFoundComponent: MovieNotFound,
   component: MovieDetail,
 });
 
+function MovieNotFound() {
+  const { t } = useTranslation();
+  return (
+    <div className="mx-auto max-w-md py-24 text-center">
+      <h1 className="text-2xl font-semibold text-white">{t("movieDetail.notFoundTitle")}</h1>
+      <p className="mt-2 text-sm text-white/50">{t("movieDetail.notFoundSubtitle")}</p>
+      <Link to="/movies" className="mt-6 inline-block rounded-xl bg-white px-4 py-2 text-sm font-medium text-black">{t("movieDetail.browseMovies")}</Link>
+    </div>
+  );
+}
+
 function MovieDetail() {
+  const { t } = useTranslation();
   const { movie } = Route.useLoaderData();
   const filmReviews = reviewsForMovie(movie.id);
   const related = movies.filter((m) => m.id !== movie.id && m.genres.some((g) => movie.genres.includes(g))).slice(0, 5);
@@ -46,7 +54,7 @@ function MovieDetail() {
   return (
     <div className="space-y-14">
       <Link to="/movies" className="inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white">
-        <ArrowLeft className="h-4 w-4" strokeWidth={1.5} /> All movies
+        <ArrowLeft className="h-4 w-4" strokeWidth={1.5} /> {t("movieDetail.allMovies")}
       </Link>
 
       <motion.section
@@ -75,16 +83,16 @@ function MovieDetail() {
             </div>
             <p className="mt-5 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">{movie.synopsis}</p>
             <dl className="mt-6 grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-              <div><dt className="text-xs uppercase tracking-widest text-white/40">Director</dt><dd className="mt-1 text-white/80">{movie.director}</dd></div>
-              <div><dt className="text-xs uppercase tracking-widest text-white/40">Release</dt><dd className="mt-1 text-white/80">{movie.releaseDate}</dd></div>
-              <div className="sm:col-span-2"><dt className="text-xs uppercase tracking-widest text-white/40">Cast</dt><dd className="mt-1 text-white/80">{movie.cast.join(", ")}</dd></div>
+              <div><dt className="text-xs uppercase tracking-widest text-white/40">{t("movieDetail.director")}</dt><dd className="mt-1 text-white/80">{movie.director}</dd></div>
+              <div><dt className="text-xs uppercase tracking-widest text-white/40">{t("movieDetail.release")}</dt><dd className="mt-1 text-white/80">{movie.releaseDate}</dd></div>
+              <div className="sm:col-span-2"><dt className="text-xs uppercase tracking-widest text-white/40">{t("movieDetail.cast")}</dt><dd className="mt-1 text-white/80">{movie.cast.join(", ")}</dd></div>
             </dl>
             <div className="mt-6 flex flex-wrap gap-2">
               <button className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black hover:bg-white/90">
-                <Play className="h-4 w-4 fill-current" strokeWidth={1.5} /> Watch trailer
+                <Play className="h-4 w-4 fill-current" strokeWidth={1.5} /> {t("movieDetail.watchTrailer")}
               </button>
               <Link to="/tickets" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2.5 text-sm font-medium text-white hover:bg-surface-3">
-                <TicketIcon className="h-4 w-4" strokeWidth={1.5} /> Buy tickets
+                <TicketIcon className="h-4 w-4" strokeWidth={1.5} /> {t("movieDetail.buyTickets")}
               </Link>
             </div>
           </div>
@@ -92,7 +100,7 @@ function MovieDetail() {
       </motion.section>
 
       <section>
-        <h2 className="mb-4 text-xl font-semibold tracking-tight text-white">Trailer</h2>
+        <h2 className="mb-4 text-xl font-semibold tracking-tight text-white">{t("movieDetail.trailer")}</h2>
         {trailerEmbed ? (
           <div className="relative aspect-video overflow-hidden rounded-2xl border border-hairline bg-black">
             <iframe
@@ -118,36 +126,36 @@ function MovieDetail() {
         <div>
           <div className="mb-6 flex items-end justify-between">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight text-white">Reviews</h2>
-              <p className="mt-1 text-sm text-white/50">{filmReviews.length} reviews · {avg.toFixed(1)} average</p>
+              <h2 className="text-xl font-semibold tracking-tight text-white">{t("movieDetail.reviewsHeading")}</h2>
+              <p className="mt-1 text-sm text-white/50">{t("movieDetail.reviewsCount", { count: filmReviews.length, avg: avg.toFixed(1) })}</p>
             </div>
           </div>
           <div className="space-y-4">
             {filmReviews.length ? filmReviews.map((r) => <ReviewCard key={r.id} review={r} />) : (
-              <p className="rounded-2xl border border-hairline bg-surface p-8 text-center text-sm text-white/50">Be the first to write a review.</p>
+              <p className="rounded-2xl border border-hairline bg-surface p-8 text-center text-sm text-white/50">{t("movieDetail.beFirstReview")}</p>
             )}
           </div>
         </div>
         <aside className="rounded-2xl border border-hairline bg-surface p-6 h-fit">
-          <h3 className="text-sm font-medium text-white">Your rating</h3>
+          <h3 className="text-sm font-medium text-white">{t("movieDetail.yourRating")}</h3>
           <div className="mt-3"><RatingStars value={myRating} size={22} interactive onChange={setMyRating} /></div>
-          <label className="mt-6 block text-sm font-medium text-white">Add a comment</label>
+          <label className="mt-6 block text-sm font-medium text-white">{t("movieDetail.addComment")}</label>
           <textarea
             value={comment} onChange={(e) => setComment(e.target.value)}
-            rows={4} placeholder="Share what you thought…"
+            rows={4} placeholder={t("movieDetail.commentPlaceholder")}
             className="mt-2 w-full resize-none rounded-xl border border-hairline bg-surface-2 p-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/30"
           />
           <button
             onClick={() => { setComment(""); setMyRating(0); }}
             className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-2.5 text-sm font-medium text-black hover:bg-white/90"
-          >Publish review</button>
-          <p className="mt-3 text-xs text-white/40">Posting as {currentUser.name}</p>
+          >{t("movieDetail.publishReview")}</button>
+          <p className="mt-3 text-xs text-white/40">{t("movieDetail.postingAs", { name: currentUser.name })}</p>
         </aside>
       </section>
 
       {related.length > 0 && (
         <section>
-          <h2 className="mb-6 text-xl font-semibold tracking-tight text-white">More like this</h2>
+          <h2 className="mb-6 text-xl font-semibold tracking-tight text-white">{t("movieDetail.moreLikeThis")}</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
             {related.map((m, i) => <MovieCard key={m.id} movie={m} index={i} />)}
           </div>

@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function RatingStars({
   value,
@@ -12,10 +13,11 @@ export function RatingStars({
   interactive?: boolean;
   onChange?: (v: number) => void;
 }) {
+  const { t } = useTranslation();
   const [hover, setHover] = useState<number | null>(null);
   const display = hover ?? value;
   return (
-    <div className="flex items-center gap-0.5" role={interactive ? "radiogroup" : "img"} aria-label={`Rating ${value} of 5`}>
+    <div className="flex items-center gap-0.5" role={interactive ? "radiogroup" : "img"} aria-label={t("ratingStars.ratingLabel", { value })}>
       {[1, 2, 3, 4, 5].map((i) => {
         const filled = i <= Math.round(display);
         const Cmp = interactive ? "button" : "span";
@@ -26,7 +28,7 @@ export function RatingStars({
             onMouseEnter={interactive ? () => setHover(i) : undefined}
             onMouseLeave={interactive ? () => setHover(null) : undefined}
             onClick={interactive ? () => onChange?.(i) : undefined}
-            aria-label={interactive ? `${i} star${i > 1 ? "s" : ""}` : undefined}
+            aria-label={interactive ? t("ratingStars.starLabel", { count: i }) : undefined}
             className={interactive ? "cursor-pointer p-0.5 outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded" : "inline-flex"}
           >
             <Star

@@ -1,13 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Bell, Globe, Accessibility, Palette, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/settings")({
-  head: () => ({ meta: [{ title: "Settings — Lumen" }, { name: "description", content: "Preferences for your Lumen experience." }] }),
+  head: () => ({ meta: [{ title: "Settings — Cinemax" }, { name: "description", content: "Preferences for your Cinemax experience." }] }),
   component: Settings,
 });
 
+function LanguageSwitcher() {
+  const { i18n } = useTranslation();
+  return (
+    <select
+      value={i18n.language}
+      onChange={(e) => i18n.changeLanguage(e.target.value)}
+      className="rounded-xl border border-hairline bg-surface-2 px-3 py-2 text-sm text-white outline-none"
+    >
+      <option value="pt">PT</option>
+      <option value="en">EN</option>
+    </select>
+  );
+}
+
 function Settings() {
+  const { t } = useTranslation();
   const [notif, setNotif] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [parental, setParental] = useState(false);
@@ -15,33 +31,31 @@ function Settings() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Settings</h1>
-        <p className="mt-2 text-sm text-white/50">Tune Lumen to your rhythm.</p>
+        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{t("settings.title")}</h1>
+        <p className="mt-2 text-sm text-white/50">{t("settings.subtitle")}</p>
       </header>
 
-      <Card icon={<Globe className="h-4 w-4" strokeWidth={1.5} />} title="Language" desc="Choose your interface language.">
-        <select className="rounded-xl border border-hairline bg-surface-2 px-3 py-2 text-sm text-white outline-none">
-          <option>English</option><option>Português</option><option>Español</option><option>Français</option>
-        </select>
+      <Card icon={<Globe className="h-4 w-4" strokeWidth={1.5} />} title={t("settings.languageTitle")} desc={t("settings.languageDesc")}>
+        <LanguageSwitcher />
       </Card>
 
-      <Card icon={<Bell className="h-4 w-4" strokeWidth={1.5} />} title="Notifications" desc="Get gentle reminders for new releases.">
-        <Toggle on={notif} onChange={setNotif} label="Enable notifications" />
+      <Card icon={<Bell className="h-4 w-4" strokeWidth={1.5} />} title={t("settings.notificationsTitle")} desc={t("settings.notificationsDesc")}>
+        <Toggle on={notif} onChange={setNotif} label={t("settings.notificationsToggle")} />
       </Card>
 
-      <Card icon={<Accessibility className="h-4 w-4" strokeWidth={1.5} />} title="Accessibility" desc="Reduce motion across the interface.">
-        <Toggle on={reduceMotion} onChange={setReduceMotion} label="Reduce motion" />
+      <Card icon={<Accessibility className="h-4 w-4" strokeWidth={1.5} />} title={t("settings.accessibilityTitle")} desc={t("settings.accessibilityDesc")}>
+        <Toggle on={reduceMotion} onChange={setReduceMotion} label={t("settings.accessibilityToggle")} />
       </Card>
 
-      <Card icon={<Palette className="h-4 w-4" strokeWidth={1.5} />} title="Theme" desc="Lumen uses a calm dark palette by default.">
+      <Card icon={<Palette className="h-4 w-4" strokeWidth={1.5} />} title={t("settings.themeTitle")} desc={t("settings.themeDesc")}>
         <div className="flex gap-2">
-          <button className="rounded-xl border border-white bg-white px-3 py-2 text-sm text-black">Dark</button>
-          <button disabled className="rounded-xl border border-hairline bg-surface-2 px-3 py-2 text-sm text-white/40">Light (soon)</button>
+          <button className="rounded-xl border border-white bg-white px-3 py-2 text-sm text-black">{t("settings.themeDark")}</button>
+          <button disabled className="rounded-xl border border-hairline bg-surface-2 px-3 py-2 text-sm text-white/40">{t("settings.themeLight")}</button>
         </div>
       </Card>
 
-      <Card icon={<ShieldCheck className="h-4 w-4" strokeWidth={1.5} />} title="Parental control" desc="Require a PIN for mature titles.">
-        <Toggle on={parental} onChange={setParental} label="Enable parental control" />
+      <Card icon={<ShieldCheck className="h-4 w-4" strokeWidth={1.5} />} title={t("settings.parentalTitle")} desc={t("settings.parentalDesc")}>
+        <Toggle on={parental} onChange={setParental} label={t("settings.parentalToggle")} />
       </Card>
     </div>
   );

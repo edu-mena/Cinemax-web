@@ -3,8 +3,10 @@ import { getUser } from "@/data/data";
 import { RatingStars } from "./RatingStars";
 import { Heart, MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function ReviewCard({ review }: { review: Review }) {
+  const { t } = useTranslation();
   const user = getUser(review.userId);
   const [likes, setLikes] = useState(review.likes);
   const [liked, setLiked] = useState(false);
@@ -36,7 +38,7 @@ export function ReviewCard({ review }: { review: Review }) {
           {likes}
         </button>
         <span className="inline-flex items-center gap-1.5">
-          <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} /> Discuss
+          <MessageCircle className="h-3.5 w-3.5" strokeWidth={1.5} /> {t("reviewCard.discuss")}
         </span>
       </footer>
     </article>

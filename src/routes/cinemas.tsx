@@ -1,18 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, Building2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { cinemas } from "@/data/data";
+import i18n from "@/i18n/config";
 
 export const Route = createFileRoute("/cinemas")({
-  head: () => ({ meta: [{ title: "Cinemas — Lumen" }, { name: "description", content: "Discover Lumen partner cinemas." }] }),
+  head: () => ({
+    meta: [
+      { title: `${i18n.t("cinemas.title")} — Cinemax` },
+      { name: "description", content: i18n.t("cinemas.subtitle") },
+    ],
+  }),
   component: Cinemas,
 });
 
 function Cinemas() {
+  const { t } = useTranslation();
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">Cinemas</h1>
-        <p className="mt-2 text-sm text-white/50">Where films breathe. Our partner venues.</p>
+        <h1 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">{t("cinemas.title")}</h1>
+        <p className="mt-2 text-sm text-white/50">{t("cinemas.subtitle")}</p>
       </header>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cinemas.map((c) => (
@@ -23,7 +31,7 @@ function Cinemas() {
               </div>
               <div className="min-w-0">
                 <h3 className="truncate text-base font-medium text-white">{c.name}</h3>
-                <p className="truncate text-xs text-white/50">{c.rooms} rooms</p>
+                <p className="truncate text-xs text-white/50">{c.rooms} {t("cinemas.rooms")}</p>
               </div>
             </div>
             <p className="mt-5 inline-flex items-center gap-1.5 text-sm text-white/60">

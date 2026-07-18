@@ -1,0 +1,194 @@
+{
+  "nav": {
+    "home": "Início",
+    "movies": "Filmes",
+    "comingSoon": "Em breve",
+    "cinemas": "Cinemas",
+    "tickets": "Bilhetes",
+    "reviews": "Críticas",
+    "favorites": "Favoritos",
+    "profile": "Perfil",
+    "settings": "Definições",
+    "menu": "Menu"
+  },
+  "header": {
+    "searchPlaceholder": "Pesquisar filmes, realizadores…",
+    "openSearch": "Abrir pesquisa",
+    "profile": "Perfil",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "close": "Fechar"
+  },
+  "sidebar": {
+    "footerVersion": "v1.0 · Pré-visualização estática"
+  },
+  "home": {
+    "brand": "CINEMAX WEB",
+    "heroTitle": "A CINEMAX bem mais\nperto de si e da sua família.",
+    "heroSubtitle": "Descobre filmes, lê críticas e reserva o teu lugar — tudo num só lugar.",
+    "exploreCatalog": "Explorar catálogo",
+    "bookTicket": "Reservar bilhete",
+    "discover": "Descobrir",
+    "featuredThisWeek": "Destaque da semana",
+    "watchTrailer": "Ver trailer",
+    "details": "Detalhes",
+    "featured": "Destaques",
+    "featuredSubtitle": "Selecionados pelos nossos editores",
+    "trending": "Em alta",
+    "trendingSubtitle": "O que as pessoas estão a ver agora",
+    "comingSoon": "Em breve",
+    "comingSoonSubtitle": "No horizonte",
+    "browseByGenre": "Explorar por género",
+    "browseByGenreSubtitle": "Encontra o teu próximo favorito",
+    "recommended": "Recomendados para ti",
+    "recommendedSubtitle": "Com base nos filmes que adoraste",
+    "advertising": "Publicidade",
+    "seeAll": "Ver tudo"
+  },
+  "movies": {
+    "title": "Filmes",
+    "subtitle": "Um catálogo cuidado. {{count}} títulos.",
+    "searchPlaceholder": "Pesquisar títulos, realizadores…",
+    "sort": "Ordenar",
+    "sortRecent": "Mais recentes",
+    "sortRating": "Melhor avaliados",
+    "sortTitle": "Título A–Z",
+    "all": "Todos",
+    "noResults": "Nenhum filme corresponde à tua pesquisa.",
+    "prev": "Anterior",
+    "next": "Seguinte"
+  },
+  "movieDetail": {
+    "allMovies": "Todos os filmes",
+    "notFoundTitle": "Filme não encontrado",
+    "notFoundSubtitle": "Este título não está no nosso catálogo.",
+    "browseMovies": "Explorar filmes",
+    "director": "Realizador",
+    "release": "Estreia",
+    "cast": "Elenco",
+    "watchTrailer": "Ver trailer",
+    "buyTickets": "Comprar bilhetes",
+    "trailer": "Trailer",
+    "reviewsHeading": "Críticas",
+    "reviewsCount": "{{count}} críticas · {{avg}} média",
+    "beFirstReview": "Sê o primeiro a escrever uma crítica.",
+    "yourRating": "A tua avaliação",
+    "addComment": "Adiciona um comentário",
+    "commentPlaceholder": "Partilha o que achaste…",
+    "publishReview": "Publicar crítica",
+    "postingAs": "A publicar como {{name}}",
+    "moreLikeThis": "Mais como este"
+  },
+  "tickets": {
+    "title": "Reservar bilhetes",
+    "subtitle": "Uma reserva simples, em seis passos.",
+    "steps": {
+      "movie": "Filme",
+      "cinema": "Cinema",
+      "date": "Data",
+      "time": "Hora",
+      "seats": "Lugares",
+      "summary": "Resumo"
+    },
+    "pickFilm": "Escolhe um filme",
+    "chooseCinema": "Escolhe um cinema",
+    "selectDate": "Seleciona uma data",
+    "chooseSession": "Escolhe uma sessão",
+    "rooms": "salas",
+    "room": "Sala",
+    "back": "Voltar",
+    "continue": "Continuar",
+    "pickSeats": "Escolhe os teus lugares",
+    "selected": "selecionados",
+    "screen": "Ecrã",
+    "legendAvailable": "Disponível",
+    "legendSelected": "Selecionado",
+    "legendTaken": "Ocupado",
+    "reviewOrder": "Revê o teu pedido",
+    "film": "Filme",
+    "cinema": "Cinema",
+    "dateTime": "Data e hora",
+    "seats": "Lugares",
+    "total": "Total",
+    "confirmBooking": "Confirmar reserva",
+    "bookedTitle": "Reserva confirmada",
+    "bookedSubtitle": "Uma confirmação silenciosa foi adicionada aos teus bilhetes.",
+    "bookAnother": "Reservar outro"
+  },
+  "reviewsPage": {
+    "title": "Críticas",
+    "subtitle": "Vozes da comunidade sobre os filmes que adoramos.",
+    "filterAll": "todas",
+    "filterTop": "melhores",
+    "filterRecent": "recentes",
+    "onMovie": "Sobre"
+  },
+  "reviewCard": {
+    "discuss": "Discutir"
+  },
+  "profile": {
+    "settings": "Definições",
+    "watched": "Vistos",
+    "hours": "Horas",
+    "reviews": "Críticas",
+    "comments": "Comentários",
+    "favoriteFilms": "Filmes favoritos",
+    "recentlyViewed": "Vistos recentemente",
+    "yourReviews": "As tuas críticas",
+    "yourComments": "Os teus comentários",
+    "noReviewsYet": "Ainda sem críticas.",
+    "noCommentsYet": "Ainda sem comentários."
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "subtitle": "{{count}} filmes guardados.",
+    "empty": "Ainda não guardaste nada."
+  },
+  "comingSoonPage": {
+    "title": "Em breve",
+    "subtitle": "Um olhar tranquilo sobre o que aí vem."
+  },
+  "cinemas": {
+    "title": "Cinemas",
+    "subtitle": "Onde os filmes respiram. Os nossos parceiros.",
+    "rooms": "salas"
+  },
+  "settings": {
+    "title": "Definições",
+    "subtitle": "Ajusta a Cinemax ao teu ritmo.",
+    "languageTitle": "Idioma",
+    "languageDesc": "Escolhe o idioma da interface.",
+    "notificationsTitle": "Notificações",
+    "notificationsDesc": "Recebe lembretes discretos sobre novos lançamentos.",
+    "notificationsToggle": "Ativar notificações",
+    "accessibilityTitle": "Acessibilidade",
+    "accessibilityDesc": "Reduz o movimento em toda a interface.",
+    "accessibilityToggle": "Reduzir movimento",
+    "themeTitle": "Tema",
+    "themeDesc": "A Cinemax usa uma paleta escura e calma por padrão.",
+    "themeDark": "Escuro",
+    "themeLight": "Claro (em breve)",
+    "parentalTitle": "Controlo parental",
+    "parentalDesc": "Exigir um PIN para títulos com classificação adulta.",
+    "parentalToggle": "Ativar controlo parental"
+  },
+  "underDevelopment": {
+    "message": "🚧 Em Desenvolvimento — esta secção está a ser cuidadosamente construída. Volta em breve."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "subtitle": "Este ecrã não está a mostrar nada de momento.",
+    "backHome": "Voltar ao início"
+  },
+  "error": {
+    "title": "Esta página não carregou",
+    "subtitle": "Algo correu mal. Tenta novamente ou volta ao início.",
+    "tryAgain": "Tentar novamente",
+    "goHome": "Ir para o início"
+  },
+  "ratingStars": {
+    "ratingLabel": "Avaliação {{value}} de 5",
+    "starLabel_one": "{{count}} estrela",
+    "starLabel_other": "{{count}} estrelas"
+  }
+}

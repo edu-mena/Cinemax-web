@@ -1,0 +1,195 @@
+{
+  "nav": {
+    "home": "Home",
+    "movies": "Movies",
+    "comingSoon": "Coming soon",
+    "cinemas": "Cinemas",
+    "tickets": "Tickets",
+    "reviews": "Reviews",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "settings": "Settings",
+    "menu": "Menu"
+  },
+  "header": {
+    "searchPlaceholder": "Search films, directors…",
+    "openSearch": "Open search",
+    "profile": "Profile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "close": "Close"
+  },
+  "sidebar": {
+    "footerVersion": "v1.0 · Static preview"
+  },
+  "home": {
+    "brand": "CINEMAX WEB",
+    "heroTitle": "Cinema much closer\nto you and your family.",
+    "heroSubtitle": "Discover films, read reviews, and book your seat — all in one place.",
+    "exploreCatalog": "Explore catalog",
+    "bookTicket": "Book a ticket",
+    "discover": "Discover",
+    "featuredThisWeek": "Featured this week",
+    "watchTrailer": "Watch trailer",
+    "details": "Details",
+    "featured": "Featured",
+    "featuredSubtitle": "Hand-picked from our editors",
+    "trending": "Trending",
+    "trendingSubtitle": "What people are watching now",
+    "comingSoon": "Coming soon",
+    "comingSoonSubtitle": "On the horizon",
+    "browseByGenre": "Browse by genre",
+    "browseByGenreSubtitle": "Find your next favorite",
+    "recommended": "Recommended for you",
+    "recommendedSubtitle": "Based on films you've loved",
+    "advertising": "Advertisement",
+    "seeAll": "See all"
+  },
+  "movies": {
+    "title": "Movies",
+    "subtitle": "A curated catalog. {{count}} titles.",
+    "searchPlaceholder": "Search titles, directors…",
+    "sort": "Sort",
+    "sortRecent": "Most recent",
+    "sortRating": "Top rated",
+    "sortTitle": "Title A–Z",
+    "all": "All",
+    "noResults": "No films match your search.",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "movieDetail": {
+    "allMovies": "All movies",
+    "notFoundTitle": "Film not found",
+    "notFoundSubtitle": "This title isn't in our catalog.",
+    "browseMovies": "Browse movies",
+    "director": "Director",
+    "release": "Release",
+    "cast": "Cast",
+    "watchTrailer": "Watch trailer",
+    "buyTickets": "Buy tickets",
+    "trailer": "Trailer",
+    "reviewsHeading": "Reviews",
+    "reviewsCount": "{{count}} reviews · {{avg}} average",
+    "beFirstReview": "Be the first to write a review.",
+    "yourRating": "Your rating",
+    "addComment": "Add a comment",
+    "commentPlaceholder": "Share what you thought…",
+    "publishReview": "Publish review",
+    "postingAs": "Posting as {{name}}",
+    "moreLikeThis": "More like this"
+  },
+  "tickets": {
+    "title": "Book tickets",
+    "subtitle": "A calm, six-step reservation.",
+    "steps": {
+      "movie": "Movie",
+      "cinema": "Cinema",
+      "date": "Date",
+      "time": "Time",
+      "seats": "Seats",
+      "summary": "Summary"
+    },
+    "pickFilm": "Pick a film",
+    "chooseCinema": "Choose a cinema",
+    "selectDate": "Select a date",
+    "chooseSession": "Choose a session",
+    "rooms": "rooms",
+    "room": "Room",
+    "back": "Back",
+    "continue": "Continue",
+    "pickSeats": "Pick your seats",
+    "selected": "selected",
+    "screen": "Screen",
+    "legendAvailable": "Available",
+    "legendSelected": "Selected",
+    "legendTaken": "Taken",
+    "reviewOrder": "Review your order",
+    "film": "Film",
+    "cinema": "Cinema",
+    "dateTime": "Date & time",
+    "seats": "Seats",
+    "total": "Total",
+    "confirmBooking": "Confirm booking",
+    "bookedTitle": "You're booked",
+    "bookedSubtitle": "A quiet confirmation has been added to your tickets.",
+    "bookAnother": "Book another"
+  },
+  "reviewsPage": {
+    "title": "Reviews",
+    "subtitle": "Community voices on the films we love.",
+    "filterAll": "all",
+    "filterTop": "top",
+    "filterRecent": "recent",
+    "onMovie": "On"
+  },
+  "reviewCard": {
+    "discuss": "Discuss"
+  },
+  "profile": {
+    "settings": "Settings",
+    "watched": "Watched",
+    "hours": "Hours",
+    "reviews": "Reviews",
+    "comments": "Comments",
+    "favoriteFilms": "Favorite films",
+    "recentlyViewed": "Recently viewed",
+    "yourReviews": "Your reviews",
+    "yourComments": "Your comments",
+    "noReviewsYet": "No reviews yet.",
+    "noCommentsYet": "No comments yet."
+  },
+  "favorites": {
+    "title": "Favorites",
+    "subtitle": "{{count}} films saved.",
+    "empty": "You haven't saved anything yet."
+  },
+  "comingSoonPage": {
+    "title": "Coming soon",
+    "subtitle": "A quiet look at what's on the horizon."
+  },
+  "cinemas": {
+    "title": "Cinemas",
+    "subtitle": "Where films breathe. Our partner venues.",
+    "rooms": "rooms"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Tune Cinemax to your rhythm.",
+    "languageTitle": "Language",
+    "languageDesc": "Choose your interface language.",
+    "notificationsTitle": "Notifications",
+    "notificationsDesc": "Get gentle reminders for new releases.",
+    "notificationsToggle": "Enable notifications",
+    "accessibilityTitle": "Accessibility",
+    "accessibilityDesc": "Reduce motion across the interface.",
+    "accessibilityToggle": "Reduce motion",
+    "themeTitle": "Theme",
+    "themeDesc": "Cinemax uses a calm dark palette by default.",
+    "themeDark": "Dark",
+    "themeLight": "Light (soon)",
+    "parentalTitle": "Parental control",
+    "parentalDesc": "Require a PIN for mature titles.",
+    "parentalToggle": "Enable parental control"
+  },
+  "underDevelopment": {
+    "message": "🚧 Under development — this section is being carefully crafted. Check back soon."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "subtitle": "This screen isn't showing anything right now.",
+    "backHome": "Back to home"
+  },
+  "error": {
+    "title": "This page didn't load",
+    "subtitle": "Something went wrong. Try again or head home.",
+    "tryAgain": "Try again",
+    "goHome": "Go home"
+  },
+  "ratingStars": {
+    "ratingLabel": "Rating {{value}} of 5",
+    "starLabel_one": "{{count}} star",
+    "starLabel_other": "{{count}} stars"
+  }
+
+}

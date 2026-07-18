@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function SectionHeader({
   title,
@@ -10,6 +11,7 @@ export function SectionHeader({
   subtitle?: string;
   href?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="mb-6 flex items-end justify-between gap-4">
       <div className="min-w-0">
@@ -21,7 +23,7 @@ export function SectionHeader({
           to={href as string}
           className="inline-flex shrink-0 items-center gap-1 text-sm text-white/60 transition hover:text-white"
         >
-          See all <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+          {t("home.seeAll")} <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
         </Link>
       )}
     </div>
