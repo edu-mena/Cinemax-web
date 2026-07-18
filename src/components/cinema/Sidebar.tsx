@@ -21,8 +21,7 @@ export function Sidebar() {
     <aside className="hidden lg:flex fixed left-0 top-0 z-30 h-dvh w-60 shrink-0 flex-col border-r border-hairline bg-surface">
       <div className="flex h-16 items-center px-6">
         <Link to="/" className="flex items-center gap-2">
-          <div className="h-7 w-7 rounded-lg bg-white text-black grid place-items-center text-xs font-bold">L</div>
-          <span className="text-sm font-semibold tracking-tight text-white">LUMEN</span>
+          <img src="./logo.png" className="h-16 w-16" alt="Logo" />
         </Link>
       </div>
       <nav className="flex-1 overflow-y-auto px-3 py-4">

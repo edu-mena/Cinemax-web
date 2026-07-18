@@ -11,17 +11,36 @@ function hash(str: string) {
 export function PosterPlaceholder({
   seed,
   title,
+  poster,
   className = "",
   aspect = "aspect-[2/3]",
   showTitle = true,
 }: {
   seed: string;
   title?: string;
+  poster?: string;
   className?: string;
   aspect?: string;
   showTitle?: boolean;
 }) {
   const variant = variants[hash(seed) % variants.length];
+
+  if (poster) {
+    return (
+      <div
+        className={`relative w-full ${aspect} overflow-hidden rounded-2xl bg-white/5 ${className}`}
+      >
+        <img
+          src={poster}
+          alt={title ?? ""}
+          className="h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/[0.04]" />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`relative w-full ${aspect} overflow-hidden rounded-2xl ${variant} ${className}`}

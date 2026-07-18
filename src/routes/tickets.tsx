@@ -64,7 +64,7 @@ function Tickets() {
         })}
       </ol>
 
-      <div className="rounded-2xl border border-hairline bg-surface p-6 sm:p-8">
+      <div className="rounded-none border-0 bg-transparent p-0 sm:rounded-2xl sm:border sm:border-hairline sm:bg-surface sm:p-8">
         <AnimatePresence mode="wait">
           <motion.div
             key={step}

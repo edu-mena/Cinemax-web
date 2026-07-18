@@ -11,6 +11,8 @@ export type Movie = {
   rating: number;
   trailerUrl: string;
   releaseDate: string;
+  poster: string;
+  trailer: string;
   featured?: boolean;
   trending?: boolean;
   comingSoon?: boolean;
@@ -83,18 +85,19 @@ export const genres: Genre[] = [
 ];
 
 export const movies: Movie[] = [
-  { id: "m1", title: "Silent Horizon", year: 2024, runtime: 128, director: "Elena Vaux", cast: ["Ana Kerr", "Jonas Reid", "Mira Solveig"], synopsis: "A cartographer discovers a valley that erases sound, forcing her to confront the memory of a lost sister.", genres: ["Drama","Mystery"], rating: 4.6, trailerUrl: "#", releaseDate: "2024-09-14", featured: true, trending: true },
-  { id: "m2", title: "Neon Cathedral", year: 2025, runtime: 142, director: "Kaito Mori", cast: ["Ruben Ito", "Sana Park"], synopsis: "In a rain-soaked megacity, an architect designs sanctuaries for people who no longer sleep.", genres: ["Sci-Fi","Drama"], rating: 4.8, trailerUrl: "#", releaseDate: "2025-01-10", featured: true, trending: true },
-  { id: "m3", title: "The Last Ember", year: 2023, runtime: 116, director: "Aiden Rowe", cast: ["Nadia Faye", "Luc Barre"], synopsis: "A retired firefighter returns to a coastal town to rescue a legacy he never wanted.", genres: ["Drama","Thriller"], rating: 4.2, trailerUrl: "#", releaseDate: "2023-11-02", trending: true },
-  { id: "m4", title: "Paper Astronauts", year: 2024, runtime: 98, director: "Iris Bloom", cast: ["Theo Han", "Milo Grey"], synopsis: "Two siblings turn their grandfather's attic into a mission to the moon.", genres: ["Drama","Animation"], rating: 4.4, trailerUrl: "#" , releaseDate: "2024-05-20", featured: true},
-  { id: "m5", title: "Cold Signals", year: 2024, runtime: 121, director: "Marta Ilves", cast: ["Ben Hoyt", "Yuki Nara"], synopsis: "A radio operator in the Arctic intercepts a message from herself, twelve years in the future.", genres: ["Sci-Fi","Thriller"], rating: 4.5, trailerUrl: "#", releaseDate: "2024-08-01", trending: true },
-  { id: "m6", title: "Gardens of Ash", year: 2022, runtime: 134, director: "Ravi Menon", cast: ["Ilse Kaur"], synopsis: "A landscape designer restores a burned estate and unearths its owners' secrets.", genres: ["Drama"], rating: 4.1, trailerUrl: "#", releaseDate: "2022-10-14" },
-  { id: "m7", title: "Midnight Concierge", year: 2025, runtime: 104, director: "Sofía Vela", cast: ["Otis Lang", "Rina Ozawa"], synopsis: "The night shift at a boutique hotel becomes a stage for small, cinematic rescues.", genres: ["Comedy","Romance"], rating: 4.3, trailerUrl: "#", releaseDate: "2025-03-22", comingSoon: true },
-  { id: "m8", title: "Voyager Nine", year: 2025, runtime: 152, director: "Kaito Mori", cast: ["Sana Park", "Devon Ash"], synopsis: "A generation ship reaches its destination and finds a message waiting.", genres: ["Sci-Fi"], rating: 4.7, trailerUrl: "#", releaseDate: "2025-06-13", comingSoon: true, featured: true },
-  { id: "m9", title: "Blue Hour", year: 2025, runtime: 89, director: "Nora Beltran", cast: ["Cass West"], synopsis: "A documentary about the twenty minutes a day when everything looks like a memory.", genres: ["Documentary"], rating: 4.5, trailerUrl: "#", releaseDate: "2025-02-18", comingSoon: true },
-  { id: "m10", title: "The Quiet Fold", year: 2024, runtime: 111, director: "Elena Vaux", cast: ["Ana Kerr"], synopsis: "A translator working on an impossible manuscript begins to hear it dream.", genres: ["Mystery","Drama"], rating: 4.6, trailerUrl: "#", releaseDate: "2024-12-01", trending: true },
-  { id: "m11", title: "Northern Static", year: 2023, runtime: 127, director: "Petr Halas", cast: ["Ivo Marek", "Klara Novak"], synopsis: "Two rival meteorologists chase a storm that behaves like it's watching them back.", genres: ["Thriller","Sci-Fi"], rating: 4.0, trailerUrl: "#", releaseDate: "2023-04-04" },
-  { id: "m12", title: "House of Small Hours", year: 2024, runtime: 96, director: "Lian Wu", cast: ["Mei Chen", "Aria Voss"], synopsis: "A pianist inherits a house whose rooms rearrange between rehearsals.", genres: ["Drama","Romance"], rating: 4.4, trailerUrl: "#", releaseDate: "2024-07-07" },
+  { id: "m1", title: "2 Mundos", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf5fFWQa2bG-g7mTlTv3TFi4JA76AIpo4TKfi76Xdhzg&s=10", featured: true, trending: true },
+  { id: "m2", title: "Filhos do Sol", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuvQxPINlFXM4YC_Iln_DZicl5Nt5NXKEDjGcO9pzngg&s=10", featured: true, trending: true },
+  { id: "m3", title: "Kwando", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDUTA-10VBQqrQvSuPBGqLf8KdazCBesuRfrAnHeT4yQ&s=10", trending: true },
+  { id: "m4", title: "Quem é o Pai da Criança", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Comedy"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjOHucn3HzykJuoYQJwF0clzJprJ5mjZT-Z6tvlHzJow&s=10", featured: true },
+  { id: "m5", title: "Perverso", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Thriller"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-e4Yd8SPuKP8d1wI3CXVXOriWFduRLuk7FQM_AT-Xfg&s=10", trending: true },
+  { id: "m6", title: "Njinga", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLxC9W5qO8DQ82LU1F0xHQBjtQe0ZMRzkKaPOgUoldew&s=10", featured: true },
+  { id: "m7", title: "Santana", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaVDc43jV-gYwCDaMm46Xl2Vd69K_G3xHyunCJh9Yc5w&s=10", comingSoon: true },
+  { id: "m8", title: "O Emigrante", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrDgeTGvoe24IWuV9arXhNdFGe6DS3XPLcCOLJTFUfWw&s=10", comingSoon: true },
+  { id: "m9", title: "Plano B", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Comedy"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqkaMrAYkPOvHVjMp8qSSwW15vKbqg-GXjuNo4mjx1Og&s=10", comingSoon: true },
+  { id: "m10", title: "Masturbação", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEYWbDLeV4C_m8Db0T1_vcRhnZSTKJ2TOmsApxEose6A&s=10", trending: true },
+  { id: "m11", title: "Falso Perfil", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Thriller"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiU3DTaUXlBGjaAsPo4xw3mPzu4naM_B8nj9Xzm3qHlg&s=10" },
+  { id: "m12", title: "Contra Todos", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwPFg2RMhKoXDFtAIzgjEcANUsvXwHqiblxzEis3gJLw&s=10" },
+  { id: "m13", title: "Moça", year: 2024, runtime: 100, director: "A definir", cast: [], synopsis: "Sinopse a adicionar.", genres: ["Drama"], rating: 4.0, trailerUrl: "#", trailer: "", releaseDate: "2024-01-01", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtJ_JOeQ9rw69rylEG_RBuqZOACEIgKCfqjya5uihFEw&s=10" },
 ];
 
 export const users: User[] = [
@@ -118,16 +121,14 @@ export const comments: Comment[] = [
 ];
 
 export const cinemas: Cinema[] = [
-  { id: "cn1", name: "Aurora Grand", city: "Lisbon", address: "Rua das Estrelas 12", rooms: 6 },
-  { id: "cn2", name: "The Meridian", city: "Porto", address: "Av. do Norte 88", rooms: 4 },
-  { id: "cn3", name: "Nocturne 21", city: "Coimbra", address: "Praça da Lua 3", rooms: 3 },
+  { id: "cn1", name: "Cinemax do Kilamba", city: "Luanda", address: "Kilamba, Luanda", rooms: 6 },
 ];
 
 export const sessions: Session[] = [
   { id: "s1", movieId: "m1", cinemaId: "cn1", date: "2026-07-20", time: "19:30", room: "A", price: 9.5 },
   { id: "s2", movieId: "m1", cinemaId: "cn1", date: "2026-07-20", time: "22:00", room: "B", price: 9.5 },
-  { id: "s3", movieId: "m2", cinemaId: "cn2", date: "2026-07-21", time: "20:00", room: "1", price: 11 },
-  { id: "s4", movieId: "m5", cinemaId: "cn3", date: "2026-07-22", time: "18:00", room: "C", price: 8 },
+  { id: "s3", movieId: "m2", cinemaId: "cn1", date: "2026-07-21", time: "20:00", room: "1", price: 11 },
+  { id: "s4", movieId: "m5", cinemaId: "cn1", date: "2026-07-22", time: "18:00", room: "C", price: 8 },
   { id: "s5", movieId: "m10", cinemaId: "cn1", date: "2026-07-23", time: "21:15", room: "D", price: 10 },
 ];
 

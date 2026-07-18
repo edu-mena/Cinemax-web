@@ -17,7 +17,7 @@ function Profile() {
 
   return (
     <div className="space-y-14">
-      <header className="rounded-3xl border border-hairline bg-surface p-6 sm:p-10">
+      <header className="rounded-none border-0 bg-transparent p-0 sm:rounded-3xl sm:border sm:border-hairline sm:bg-surface sm:p-10">
         <div className="grid gap-8 sm:grid-cols-[auto_1fr_auto] sm:items-center">
           <div className="grid h-24 w-24 place-items-center rounded-full bg-surface-3 text-2xl font-medium text-white/90">{currentUser.avatar}</div>
           <div className="min-w-0">
@@ -31,15 +31,15 @@ function Profile() {
             </div>
           </div>
           <Link to="/settings" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
-            <SettingsIcon className="h-4 w-4" strokeWidth={1.5} /> Settings
+            <SettingsIcon className="h-4 w-4 text-white/70" strokeWidth={1.5} /> Settings
           </Link>
         </div>
 
-        <dl className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <Stat icon={<Film className="h-4 w-4 text-sky-300" strokeWidth={1.5} />} k="Watched" v={currentUser.stats.watched} />
-          <Stat icon={<Clock className="h-4 w-4 text-emerald-300" strokeWidth={1.5} />} k="Hours" v={currentUser.stats.hours} />
-          <Stat icon={<Star className="h-4 w-4 text-amber-300" strokeWidth={1.5} />} k="Reviews" v={currentUser.stats.reviews} />
-          <Stat icon={<MessageSquare className="h-4 w-4 text-rose-300" strokeWidth={1.5} />} k="Comments" v={currentUser.stats.comments} />
+        <dl className="mt-8 grid grid-cols-2 divide-x divide-y divide-hairline overflow-hidden rounded-2xl border border-hairline sm:grid-cols-4 sm:divide-y-0">
+          <Stat icon={<Film className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Watched" v={currentUser.stats.watched} />
+          <Stat icon={<Clock className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Hours" v={currentUser.stats.hours} />
+          <Stat icon={<Star className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Reviews" v={currentUser.stats.reviews} />
+          <Stat icon={<MessageSquare className="h-4 w-4 text-white/40" strokeWidth={1.5} />} k="Comments" v={currentUser.stats.comments} />
         </dl>
       </header>
 
@@ -79,9 +79,12 @@ function Profile() {
 
 function Stat({ icon, k, v }: { icon: React.ReactNode; k: string; v: number }) {
   return (
-    <div className="rounded-2xl border border-hairline bg-surface-2 p-4">
-      <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-white/40">{icon} {k}</div>
-      <div className="mt-2 text-2xl font-semibold text-white">{v}</div>
+    <div className="group bg-surface px-5 py-5 transition hover:bg-surface-2">
+      <div className="flex items-center justify-between">
+        {icon}
+        <span className="text-[10px] uppercase tracking-widest text-white/30">{k}</span>
+      </div>
+      <div className="mt-3 text-3xl font-semibold tabular-nums text-white">{v.toLocaleString()}</div>
     </div>
   );
 }

@@ -18,7 +18,18 @@ export function MovieCard({ movie, index = 0 }: { movie: Movie; index?: number }
         className="group block outline-none focus-visible:ring-2 focus-visible:ring-white/40 rounded-2xl"
       >
         <div className="relative">
-          <PosterPlaceholder seed={movie.id} title={movie.title} />
+          {movie.poster ? (
+            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl bg-white/5">
+              <img
+                src={movie.poster}
+                alt={movie.title}
+                className="h-full w-full object-cover transition duration-200 group-hover:scale-[1.03]"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <PosterPlaceholder seed={movie.id} title={movie.title} />
+          )}
           <div className="pointer-events-none absolute inset-0 rounded-2xl transition duration-200 group-hover:ring-1 group-hover:ring-white/15" />
         </div>
         <div className="mt-3 flex items-start justify-between gap-3">
