@@ -11,7 +11,7 @@ import { PosterPlaceholder } from "@/components/cinema/PosterPlaceholder";
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
-  const hero = featuredMovies[0] ?? movies[0];
+  const hero = featuredMovies[11] ?? movies[14];
   const recommended = movies.slice(6, 12);
   return (
     <div className="space-y-16">
