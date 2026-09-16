@@ -24,7 +24,7 @@ export default function CinemaxBlockedPage() {
               Eduardo Mena Baptista
             </strong>{" "}
             como proposta de aplicativo de venda de bilhetes para o{" "}
-            <span className="text-white font-semibold">Cinemaz</span> e o{" "}
+            <span className="text-white font-semibold">Cinemax</span> e o{" "}
             <span className="text-white font-semibold">Zap Cinemas</span>. Entre em Contacto para saber mais:
           </p>
         </div>
