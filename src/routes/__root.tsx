@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Sidebar } from "@/components/cinema/Sidebar";
 import { Header } from "@/components/cinema/Header";
+import BlockedPage from "@/components/BlockedPage";
 import "@/i18n/config";
 
 function NotFoundComponent() {
@@ -97,15 +98,25 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-dvh bg-background text-foreground">
-        <Sidebar />
-        <Header />
-        <main className="lg:pl-60 pt-16">
-          <div className="mx-auto max-w-[1600px] px-4 py-8 sm:px-6 sm:py-10">
-            <Outlet />
-          </div>
-        </main>
-      </div>
+      <BlockedPage />
     </QueryClientProvider>
   );
 }
+
+// Layout original, preservado para quando o bloqueio for removido:
+// function RootComponent() {
+//   const { queryClient } = Route.useRouteContext();
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <div className="min-h-dvh bg-background text-foreground">
+//         <Sidebar />
+//         <Header />
+//         <main className="lg:pl-60 pt-16">
+//           <div className="mx-auto max-w-[1600px] px-4 py-8 sm:px-6 sm:py-10">
+//             <Outlet />
+//           </div>
+//         </main>
+//       </div>
+//     </QueryClientProvider>
+//   );
+// }
