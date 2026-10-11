@@ -1,10 +1,10 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { Search, MoreVertical, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { navItems } from "./Sidebar";
-import { currentUser } from "@/data/data";
+import { useNavItems } from "./Sidebar";
+import { useCurrentUser } from "@/lib/store";
 
 const SCROLL_THRESHOLD = 8; // px de scroll antes de considerar "rolado"
 
@@ -13,6 +13,14 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { t } = useTranslation();
+  const user = useCurrentUser();
+  const items = useNavItems();
+  const navigate = useNavigate();
+  const search = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== "Enter") return;
+    navigate({ to: "/movies", search: { q: e.currentTarget.value.trim() || undefined } });
+    setSearchOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -53,6 +61,7 @@ export function Header() {
               type="search"
               placeholder={t("header.searchPlaceholder")}
               aria-label={t("header.searchPlaceholder")}
+              onKeyDown={search}
               className="w-full min-w-0 bg-transparent text-sm text-white outline-none placeholder:text-white/30"
             />
           </div>
@@ -65,12 +74,19 @@ export function Header() {
             <Search className="h-5 w-5" strokeWidth={1.5} />
           </button>
 
-          <button
-            aria-label={t("header.profile")}
-            className="hidden lg:grid h-10 w-10 place-items-center rounded-full bg-surface-3 text-xs font-medium text-white/80 hover:ring-1 hover:ring-white/20"
-          >
-            {currentUser.avatar}
-          </button>
+          {user ? (
+            <Link
+              to="/profile"
+              aria-label={t("header.profile")}
+              className="hidden lg:grid h-10 w-10 place-items-center rounded-full bg-surface-3 text-xs font-medium text-white/80 hover:ring-1 hover:ring-white/20"
+            >
+              {user.avatar}
+            </Link>
+          ) : (
+            <Link to="/login" className="rounded-xl bg-white px-4 py-2 text-sm font-medium text-black hover:bg-white/90">
+              {t("auth.login")}
+            </Link>
+          )}
 
           <button
             aria-label={t("header.openMenu")}
@@ -97,7 +113,7 @@ export function Header() {
               className="mx-auto flex max-w-md items-center gap-2 rounded-xl border border-hairline bg-surface px-3 py-3"
             >
               <Search className="h-4 w-4 text-white/40" strokeWidth={1.5} />
-              <input autoFocus placeholder={t("header.searchPlaceholder")} className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/30" />
+              <input autoFocus onKeyDown={search} placeholder={t("header.searchPlaceholder")} className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/30" />
               <button aria-label={t("header.close")} onClick={() => setSearchOpen(false)}><X className="h-4 w-4 text-white/50" /></button>
             </motion.div>
           </motion.div>
@@ -127,7 +143,7 @@ export function Header() {
                 </button>
               </div>
               <ul className="p-2">
-                {navItems.map(({ to, labelKey, icon: Icon }) => (
+                {items.map(({ to, labelKey, icon: Icon }) => (
                   <li key={to}>
                     <Link
                       to={to}

@@ -1,8 +1,9 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 import {
-  Home, Film, CalendarClock, MapPin, Ticket, MessageSquare, Heart, User, Settings,
+  Home, Film, CalendarClock, MapPin, Ticket, MessageSquare, Heart, User, Settings, QrCode, LayoutDashboard,
 } from "lucide-react";
+import { useCurrentUser } from "@/lib/store";
 
 export const navItems = [
   { to: "/", labelKey: "nav.home", icon: Home },
@@ -10,15 +11,24 @@ export const navItems = [
   { to: "/coming-soon", labelKey: "nav.comingSoon", icon: CalendarClock },
   { to: "/cinemas", labelKey: "nav.cinemas", icon: MapPin },
   { to: "/tickets", labelKey: "nav.tickets", icon: Ticket },
+  { to: "/my-tickets", labelKey: "nav.myTickets", icon: QrCode },
   { to: "/reviews", labelKey: "nav.reviews", icon: MessageSquare },
   { to: "/favorites", labelKey: "nav.favorites", icon: Heart },
   { to: "/profile", labelKey: "nav.profile", icon: User },
   { to: "/settings", labelKey: "nav.settings", icon: Settings },
 ] as const;
 
+// Itens visíveis para o utilizador actual (a gestão só aparece a gestores e admins).
+export function useNavItems() {
+  const user = useCurrentUser();
+  const manage = user && user.role !== "user" ? [{ to: "/manage", labelKey: "nav.manage", icon: LayoutDashboard } as const] : [];
+  return [...navItems, ...manage];
+}
+
 export function Sidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useTranslation();
+  const items = useNavItems();
   return (
     <aside className="hidden lg:flex fixed left-0 top-0 z-30 h-dvh w-60 shrink-0 flex-col border-r border-hairline bg-surface">
       <div className="flex h-24 items-center px-6">
@@ -28,7 +38,7 @@ export function Sidebar() {
       </div>
       <nav className="flex-1 overflow-y-auto px-3 py-4">
         <ul className="space-y-1">
-          {navItems.map(({ to, labelKey, icon: Icon }) => {
+          {items.map(({ to, labelKey, icon: Icon }) => {
             const active = to === "/" ? pathname === "/" : pathname.startsWith(to);
             return (
               <li key={to}>

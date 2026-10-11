@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { reviews as allReviews, getMovie } from "@/data/data";
+import { getMovie } from "@/data/data";
+import { useDb } from "@/lib/store";
 import { ReviewCard } from "@/components/cinema/ReviewCard";
 import i18n from "@/i18n/config";
 
@@ -18,12 +19,13 @@ export const Route = createFileRoute("/reviews")({
 function Reviews() {
   const { t } = useTranslation();
   const [filter, setFilter] = useState<"all" | "top" | "recent">("all");
+  const allReviews = useDb().reviews;
   const list = useMemo(() => {
     const l = allReviews.slice();
     if (filter === "top") l.sort((a, b) => b.likes - a.likes);
     if (filter === "recent") l.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
     return l;
-  }, [filter]);
+  }, [filter, allReviews]);
 
   const filterLabels: Record<typeof filter, string> = {
     all: t("reviewsPage.filterAll"),

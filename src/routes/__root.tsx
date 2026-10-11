@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Sidebar } from "@/components/cinema/Sidebar";
 import { Header } from "@/components/cinema/Header";
 import "@/i18n/config";
+import { hydrateStore } from "@/lib/store";
 
 function NotFoundComponent() {
   const { t } = useTranslation();
@@ -95,6 +96,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  useEffect(() => { hydrateStore(); }, []);
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-dvh bg-background text-foreground">

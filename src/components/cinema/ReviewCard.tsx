@@ -1,5 +1,5 @@
 import type { Review } from "@/data/data";
-import { getUser } from "@/data/data";
+import { useDb } from "@/lib/store";
 import { RatingStars } from "./RatingStars";
 import { Heart, MessageCircle } from "lucide-react";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 export function ReviewCard({ review }: { review: Review }) {
   const { t } = useTranslation();
-  const user = getUser(review.userId);
+  const user = useDb().users.find((u) => u.id === review.userId);
   const [likes, setLikes] = useState(review.likes);
   const [liked, setLiked] = useState(false);
 

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { genres, movies } from "@/data/data";
@@ -7,6 +7,7 @@ import { MovieCard } from "@/components/cinema/MovieCard";
 import i18n from "@/i18n/config";
 
 export const Route = createFileRoute("/movies/")({
+  validateSearch: (s: Record<string, unknown>): { q?: string } => ({ q: typeof s.q === "string" ? s.q : undefined }),
   head: () => ({
     meta: [
       { title: `${i18n.t("movies.title")} — Cinemax` },
@@ -35,7 +36,9 @@ function getPageItems(current: number, total: number, siblings = 1): (number | "
 
 function MoviesPage() {
   const { t } = useTranslation();
-  const [q, setQ] = useState("");
+  const { q: searchQ } = Route.useSearch();
+  const [q, setQ] = useState(searchQ ?? "");
+  useEffect(() => setQ(searchQ ?? ""), [searchQ]);
   const [genre, setGenre] = useState<string | null>(null);
   const [sort, setSort] = useState<"recent" | "rating" | "title">("recent");
   const [page, setPage] = useState(1);

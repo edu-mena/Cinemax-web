@@ -1,17 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Settings as SettingsIcon, Film, MessageSquare, Clock, Star } from "lucide-react";
+import { Settings as SettingsIcon, Film, MessageSquare, Clock, Star, LogOut, Ticket } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { currentUser, getMovie, reviews as allReviews, comments as allComments } from "@/data/data";
+import { getMovie, comments as allComments } from "@/data/data";
+import { logout, useCurrentUser, useDb } from "@/lib/store";
+import { RequireAuth } from "@/components/cinema/RequireAuth";
 import { MovieCard } from "@/components/cinema/MovieCard";
 import { ReviewCard } from "@/components/cinema/ReviewCard";
 
 export const Route = createFileRoute("/profile")({
-  head: () => ({ meta: [{ title: `${currentUser.name} — Cinemax`}, { name: "description", content: "Your cinema profile." }] }),
-  component: Profile,
+  head: () => ({ meta: [{ title: "Perfil — Cinemax" }, { name: "description", content: "Your cinema profile." }] }),
+  component: () => <RequireAuth><Profile /></RequireAuth>,
 });
 
 function Profile() {
   const { t } = useTranslation();
+  const currentUser = useCurrentUser()!;
+  const allReviews = useDb().reviews;
   const favs = currentUser.favoriteMovies.map(getMovie).filter(Boolean);
   const recent = currentUser.recentlyViewed.map(getMovie).filter(Boolean);
   const myReviews = allReviews.filter((r) => r.userId === currentUser.id);
@@ -32,9 +36,17 @@ function Profile() {
               ))}
             </div>
           </div>
-          <Link to="/settings" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
-            <SettingsIcon className="h-4 w-4 text-white/70" strokeWidth={1.5} /> {t("profile.settings")}
-          </Link>
+          <div className="flex flex-wrap gap-2 sm:flex-col">
+            <Link to="/my-tickets" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
+              <Ticket className="h-4 w-4 text-white/70" strokeWidth={1.5} /> {t("nav.myTickets")}
+            </Link>
+            <Link to="/settings" className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
+              <SettingsIcon className="h-4 w-4 text-white/70" strokeWidth={1.5} /> {t("profile.settings")}
+            </Link>
+            <button onClick={logout} className="inline-flex items-center gap-2 rounded-xl border border-hairline bg-surface-2 px-4 py-2 text-sm text-white/80 hover:bg-surface-3">
+              <LogOut className="h-4 w-4 text-white/70" strokeWidth={1.5} /> {t("auth.logout")}
+            </button>
+          </div>
         </div>
 
         <dl className="mt-8 grid grid-cols-2 divide-x divide-y divide-hairline overflow-hidden rounded-2xl border border-hairline sm:grid-cols-4 sm:divide-y-0">

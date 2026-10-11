@@ -9,7 +9,9 @@
     "favorites": "Favoritos",
     "profile": "Perfil",
     "settings": "Definições",
-    "menu": "Menu"
+    "menu": "Menu",
+    "myTickets": "Meus bilhetes",
+    "manage": "Gestão"
   },
   "header": {
     "searchPlaceholder": "Pesquisar filmes, realizadores…",
@@ -77,7 +79,11 @@
     "commentPlaceholder": "Partilha o que achaste…",
     "publishReview": "Publicar crítica",
     "postingAs": "A publicar como {{name}}",
-    "moreLikeThis": "Mais como este"
+    "moreLikeThis": "Mais como este",
+    "favorite": "Favorito",
+    "favorited": "Nos favoritos",
+    "noTrailer": "Trailer indisponível",
+    "loginToReview": "Entra para publicar uma crítica"
   },
   "tickets": {
     "title": "Reservar bilhetes",
@@ -151,7 +157,8 @@
   "cinemas": {
     "title": "Cinemas",
     "subtitle": "Onde os filmes respiram. Os nossos parceiros.",
-    "rooms": "salas"
+    "rooms": "salas",
+    "allCities": "Todas as cidades"
   },
   "settings": {
     "title": "Definições",
@@ -190,5 +197,196 @@
     "ratingLabel": "Avaliação {{value}} de 5",
     "starLabel_one": "{{count}} estrela",
     "starLabel_other": "{{count}} estrelas"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Criar conta",
+    "logout": "Terminar sessão",
+    "loginTitle": "Bem-vindo de volta",
+    "registerTitle": "Criar conta",
+    "subtitle": "Compra bilhetes, guarda favoritos e escreve críticas.",
+    "name": "Nome",
+    "email": "E-mail",
+    "password": "Palavra-passe",
+    "invalid": "E-mail ou palavra-passe incorrectos.",
+    "shortPassword": "A palavra-passe precisa de pelo menos 6 caracteres.",
+    "emailTaken": "Já existe uma conta com este e-mail.",
+    "noAccount": "Ainda não tens conta? Regista-te",
+    "haveAccount": "Já tens conta? Entra",
+    "demo": "Contas de demonstração (palavra-passe 123456):",
+    "roles": {
+      "user": "Espectador",
+      "manager": "Gestor de cinema",
+      "admin": "Administrador"
+    }
+  },
+  "cinemaPage": {
+    "notFound": "Cinema não encontrado",
+    "allCinemas": "Todos os cinemas",
+    "tabs": {
+      "showing": "Em cartaz",
+      "soon": "Brevemente",
+      "news": "Novidades",
+      "info": "Informações"
+    },
+    "noNews": "Ainda não há novidades.",
+    "about": "Sobre",
+    "rooms": "Salas",
+    "seats": "lugares",
+    "hours": "Horário",
+    "phone": "Telefone",
+    "address": "Morada"
+  },
+  "posts": {
+    "kinds": {
+      "news": "Novidade",
+      "release": "Lançamento",
+      "promo": "Promoção"
+    }
+  },
+  "amenities": {
+    "parking": "Estacionamento",
+    "bar": "Bar",
+    "accessible": "Acessível",
+    "vip": "Lugares VIP",
+    "imax": "IMAX",
+    "3d": "3D"
+  },
+  "showtimes": {
+    "today": "Hoje",
+    "none": "Sem sessões disponíveis de momento.",
+    "comingSoon": "Estreia em breve — as sessões serão anunciadas.",
+    "whereToWatch": "Onde ver",
+    "lang": {
+      "dub": "Dobrado",
+      "sub": "Legendado",
+      "orig": "Original"
+    }
+  },
+  "checkout": {
+    "vip": "VIP",
+    "accessible": "Mobilidade reduzida",
+    "standard": "Normal",
+    "from": "desde",
+    "unavailable": "Esta sessão já não está disponível.",
+    "pickAnother": "Escolher outra sessão",
+    "maxSeats": "Até {{count}} lugares por compra",
+    "payment": "Pagamento",
+    "methods": {
+      "mcx": "Multicaixa Express",
+      "reference": "Pagamento por referência",
+      "card": "Cartão Visa / Mastercard"
+    },
+    "methodHints": {
+      "mcx": "Confirma no telemóvel",
+      "reference": "Paga num ATM ou homebanking",
+      "card": "Pagamento imediato"
+    },
+    "pay": "Pagar {{total}}",
+    "loginToPay": "Entrar para pagar"
+  },
+  "myTickets": {
+    "title": "Meus bilhetes",
+    "subtitle": "Mostra o QR code à entrada da sala.",
+    "upcoming": "Próximos",
+    "past": "Anteriores",
+    "status": {
+      "paid": "Pago",
+      "pending": "Pagamento pendente",
+      "used": "Utilizado",
+      "cancelled": "Cancelado"
+    },
+    "pendingHint": "Entidade {{entity}} · Referência {{reference}}. O bilhete fica activo após o pagamento.",
+    "simulatePayment": "Simular pagamento",
+    "cancel": "Cancelar bilhete",
+    "confirmCancel": "Cancelar este bilhete? Os lugares voltam a ficar disponíveis.",
+    "empty": "Não tens bilhetes aqui."
+  },
+  "manage": {
+    "title": "Gestão",
+    "noCinema": "Nenhum cinema associado a esta conta.",
+    "tabs": {
+      "dashboard": "Resumo",
+      "sessions": "Sessões",
+      "rooms": "Salas",
+      "posts": "Novidades",
+      "tickets": "Bilhetes",
+      "profile": "Perfil do cinema"
+    },
+    "stats": {
+      "revenue": "Receita",
+      "online": "vendas online",
+      "seatsSold": "Lugares vendidos",
+      "sessionsToday": "Sessões hoje",
+      "occupancy": "Ocupação",
+      "today": "hoje"
+    },
+    "nextSessions": "Próximas sessões de hoje",
+    "seeAll": "Ver todas",
+    "noSessionsToday": "Não há mais sessões hoje.",
+    "noSessionsDay": "Sem sessões neste dia.",
+    "newSession": "Nova sessão",
+    "room": "Sala",
+    "format": "Formato",
+    "language": "Versão",
+    "soldOnline": "{{count}} vendidos online",
+    "sessionHasTickets": "Esta sessão já tem bilhetes vendidos e não pode ser removida.",
+    "needRoom": "Cria primeiro uma sala.",
+    "roomHasSessions": "Esta sala tem sessões futuras e não pode ser removida.",
+    "newRoom": "Nova sala",
+    "rows": "Filas",
+    "seatsPerRow": "Lugares por fila",
+    "aisleAfter": "Corredor após o lugar",
+    "accessibleSeats": "Lugares de mobilidade reduzida",
+    "vipRows": "Filas VIP (clica para alternar)",
+    "add": "Adicionar",
+    "save": "Guardar",
+    "saved": "Alterações guardadas",
+    "edit": "Editar",
+    "delete": "Remover",
+    "cancel": "Cancelar",
+    "confirmDelete": "Tens a certeza que queres remover?",
+    "newPost": "Nova publicação",
+    "editPost": "Editar publicação",
+    "kind": "Tipo",
+    "postTitle": "Título",
+    "postBody": "Texto",
+    "linkedMovie": "Filme associado (opcional)",
+    "publish": "Publicar",
+    "validate": "Validar bilhete",
+    "validateBtn": "Validar",
+    "validateHint": "Lê o QR code do cliente ou escreve o código do bilhete.",
+    "validation": {
+      "ok": "Válido. Entrada registada.",
+      "notFound": "Bilhete não encontrado.",
+      "used": "Este bilhete já foi utilizado.",
+      "cancelled": "Este bilhete foi cancelado.",
+      "pending": "Pagamento ainda pendente.",
+      "wrongCinema": "Este bilhete é de outro cinema."
+    },
+    "allTickets": "Bilhetes vendidos",
+    "noTickets": "Ainda não há bilhetes.",
+    "cols": {
+      "code": "Código",
+      "client": "Cliente",
+      "film": "Filme",
+      "session": "Sessão",
+      "seats": "Lugares",
+      "total": "Total",
+      "status": "Estado"
+    },
+    "newCinema": "Novo cinema",
+    "viewPublic": "Ver página pública",
+    "fields": {
+      "name": "Nome",
+      "chain": "Cadeia",
+      "city": "Cidade",
+      "address": "Morada",
+      "phone": "Telefone",
+      "email": "E-mail",
+      "openingHours": "Horário",
+      "description": "Descrição",
+      "amenities": "Comodidades"
+    }
   }
 }

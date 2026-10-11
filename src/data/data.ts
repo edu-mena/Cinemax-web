@@ -17,8 +17,13 @@ export type Movie = {
   trending?: boolean;
   comingSoon?: boolean;
 };
+export type Role = "user" | "manager" | "admin";
 export type User = {
   id: string;
+  email: string;
+  password: string; // mock — só para o protótipo, nunca guardar assim em produção
+  role: Role;
+  cinemaId?: string; // cinema gerido (role "manager")
   username: string;
   name: string;
   bio: string;
@@ -49,26 +54,61 @@ export type Comment = {
 export type Cinema = {
   id: string;
   name: string;
+  chain: string;
   city: string;
   address: string;
-  rooms: number;
+  description: string;
+  phone: string;
+  email: string;
+  openingHours: string;
+  amenities: string[];
 };
+export type Room = {
+  id: string;
+  cinemaId: string;
+  name: string;
+  rows: number;
+  seatsPerRow: number;
+  aisleAfter: number; // corredor depois do lugar N (0 = sem corredor)
+  vipRows: string[];
+  accessibleSeats: string[];
+};
+export type SessionFormat = "2D" | "3D" | "IMAX";
+export type SessionLanguage = "dub" | "sub" | "orig";
 export type Session = {
   id: string;
   movieId: string;
   cinemaId: string;
-  date: string;
-  time: string;
-  room: string;
-  price: number;
+  roomId: string;
+  date: string; // YYYY-MM-DD
+  time: string; // HH:mm
+  format: SessionFormat;
+  language: SessionLanguage;
+  price: number; // Kz
+  vipPrice: number; // Kz
 };
+export type PaymentMethod = "mcx" | "reference" | "card";
+export type TicketStatus = "paid" | "pending" | "cancelled" | "used";
 export type Ticket = {
   id: string;
+  code: string;
   userId: string;
   sessionId: string;
   seats: string[];
   total: number;
-  status: "confirmed" | "pending";
+  status: TicketStatus;
+  paymentMethod: PaymentMethod;
+  createdAt: string;
+};
+export type PostKind = "news" | "release" | "promo";
+export type Post = {
+  id: string;
+  cinemaId: string;
+  kind: PostKind;
+  title: string;
+  body: string;
+  movieId?: string;
+  createdAt: string;
 };
 
 export const genres: Genre[] = [
@@ -165,9 +205,9 @@ export const movies: Movie[] = [
   { id: "m76", title: "A Forma da Água", year: 2017, runtime: 123, director: "Guillermo del Toro", cast: ["Sally Hawkins", "Octavia Spencer", "Michael Shannon"], synopsis: "Num centro de pesquisa na década de 1960, uma empregada de limpeza surda apaixona-se por uma criatura aquática alienígena ali mantida prisioneira.", genres: ["Drama", "Romance", "Ficção Científica"], rating: 4.2, trailerUrl: "https://www.youtube.com/embed/XFYWazblaUA", trailer: "https://www.youtube.com/embed/XFYWazblaUA", releaseDate: "2017-12-01", poster: "https://image.tmdb.org/t/p/w500/9zfwPffUXpBrEP26yp0q1ckXDcj.jpg", trending: true },
 ];
 export const users: User[] = [
-  { id: "u1", username: "A'D", name: "Alisson Denis", bio: "DevOps Engineer", avatar: "AL", favoriteGenres: ["Drama","Ficção Científica"], favoriteMovies: ["m1","m2","m10"], ratedMovies: [{movieId:"m1",rating:5},{movieId:"m2",rating:5},{movieId:"m5",rating:4}], recentlyViewed: ["m2","m8","m1","m10"], stats: { reviews: 42, comments: 128, watched: 316, hours: 612 } },
-  { id: "u2", username: "M3N4", name: "Eduardo Mena", bio: "Otaku Master", avatar: "KM", favoriteGenres: ["Ficção Científica"], favoriteMovies: ["m2","m8"], ratedMovies: [{movieId:"m2",rating:5}], recentlyViewed: ["m2"], stats: { reviews: 9, comments: 22, watched: 84, hours: 190 } },
-  { id: "u3", username: "Comboio", name: "Danilson Comboio", bio: "Pirate", avatar: "RF", favoriteGenres: ["Mistério","Drama"], favoriteMovies: ["m10","m1"], ratedMovies: [{movieId:"m10",rating:5}], recentlyViewed: ["m10","m1"], stats: { reviews: 61, comments: 204, watched: 402, hours: 780 } },
+  { id: "u1", email: "alisson@cinemax.ao", password: "123456", role: "user", username: "A'D", name: "Alisson Denis", bio: "DevOps Engineer", avatar: "AL", favoriteGenres: ["Drama","Ficção Científica"], favoriteMovies: ["m1","m2","m10"], ratedMovies: [{movieId:"m1",rating:5},{movieId:"m2",rating:5},{movieId:"m5",rating:4}], recentlyViewed: ["m2","m8","m1","m10"], stats: { reviews: 42, comments: 128, watched: 316, hours: 612 } },
+  { id: "u2", email: "gestor@cinemax.ao", password: "123456", role: "manager", cinemaId: "cn1", username: "M3N4", name: "Eduardo Mena", bio: "Otaku Master", avatar: "KM", favoriteGenres: ["Ficção Científica"], favoriteMovies: ["m2","m8"], ratedMovies: [{movieId:"m2",rating:5}], recentlyViewed: ["m2"], stats: { reviews: 9, comments: 22, watched: 84, hours: 190 } },
+  { id: "u3", email: "admin@cinemax.ao", password: "123456", role: "admin", username: "Comboio", name: "Danilson Comboio", bio: "Pirate", avatar: "RF", favoriteGenres: ["Mistério","Drama"], favoriteMovies: ["m10","m1"], ratedMovies: [{movieId:"m10",rating:5}], recentlyViewed: ["m10","m1"], stats: { reviews: 61, comments: 204, watched: 402, hours: 780 } },
 ];
 
 export const reviews: Review[] = [
@@ -185,31 +225,78 @@ export const comments: Comment[] = [
 ];
 
 export const cinemas: Cinema[] = [
-  { id: "cn1", name: "Cinemax do Kilamba", city: "Luanda", address: "Kilamba, Luanda", rooms: 6 },
+  { id: "cn1", name: "Cinemax Kilamba", chain: "Cinemax", city: "Luanda", address: "Centralidade do Kilamba, Bloco Q", description: "O primeiro Cinemax da cidade, com salas digitais e uma sala IMAX para as grandes estreias.", phone: "+244 923 000 101", email: "kilamba@cinemax.ao", openingHours: "13:00 – 00:00", amenities: ["parking", "bar", "accessible", "imax"] },
+  { id: "cn2", name: "Cinemax Talatona", chain: "Cinemax", city: "Luanda", address: "Via S8, Talatona", description: "Salas confortáveis no coração de Talatona, com lugares VIP reclináveis.", phone: "+244 923 000 102", email: "talatona@cinemax.ao", openingHours: "12:00 – 00:30", amenities: ["parking", "bar", "vip", "accessible"] },
+  { id: "cn3", name: "Zap Cinemas Belas", chain: "Zap Cinemas", city: "Luanda", address: "Belas Shopping, Talatona", description: "Cinema de centro comercial com estreias semanais e sessões para toda a família.", phone: "+244 923 000 201", email: "belas@zapcinemas.ao", openingHours: "11:00 – 23:30", amenities: ["parking", "bar", "3d"] },
+  { id: "cn4", name: "Zap Cinemas Lobito", chain: "Zap Cinemas", city: "Lobito", address: "Avenida da Restinga, Lobito", description: "O grande ecrã do litoral de Benguela.", phone: "+244 923 000 202", email: "lobito@zapcinemas.ao", openingHours: "14:00 – 23:00", amenities: ["accessible", "3d"] },
 ];
 
-export const sessions: Session[] = [
-  { id: "s1", movieId: "m1", cinemaId: "cn1", date: "2026-07-20", time: "19:30", room: "A", price: 9.5 },
-  { id: "s2", movieId: "m1", cinemaId: "cn1", date: "2026-07-20", time: "22:00", room: "B", price: 9.5 },
-  { id: "s3", movieId: "m2", cinemaId: "cn1", date: "2026-07-21", time: "20:00", room: "1", price: 11 },
-  { id: "s4", movieId: "m5", cinemaId: "cn1", date: "2026-07-22", time: "18:00", room: "C", price: 8 },
-  { id: "s5", movieId: "m10", cinemaId: "cn1", date: "2026-07-23", time: "21:15", room: "D", price: 10 },
+const room = (id: string, cinemaId: string, name: string, rows: number, seatsPerRow: number, vipRows: string[] = []): Room => ({
+  id, cinemaId, name, rows, seatsPerRow, aisleAfter: Math.floor(seatsPerRow / 2), vipRows,
+  accessibleSeats: ["A1", `A${seatsPerRow}`],
+});
+
+export const rooms: Room[] = [
+  room("r1", "cn1", "Sala 1", 8, 12, ["H"]),
+  room("r2", "cn1", "Sala 2", 6, 10),
+  room("r3", "cn1", "IMAX", 10, 14, ["I", "J"]),
+  room("r4", "cn2", "Sala 1", 8, 12, ["G", "H"]),
+  room("r5", "cn2", "Sala VIP", 5, 8, ["A", "B", "C", "D", "E"]),
+  room("r6", "cn3", "Sala 1", 8, 12),
+  room("r7", "cn3", "Sala 2", 7, 10),
+  room("r8", "cn4", "Sala 1", 8, 12, ["H"]),
 ];
 
-export const tickets: Ticket[] = [
-  { id: "t1", userId: "u1", sessionId: "s1", seats: ["F5","F6"], total: 19, status: "confirmed" },
-  { id: "t2", userId: "u1", sessionId: "s3", seats: ["C10"], total: 11, status: "confirmed" },
+const pad = (n: number) => String(n).padStart(2, "0");
+export const toISODate = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+export const dayOffset = (days: number) => { const d = new Date(); d.setDate(d.getDate() + days); return toISODate(d); };
+
+const TIMES = ["14:30", "18:00", "21:15"];
+const LANGS: SessionLanguage[] = ["sub", "dub", "orig"];
+
+// Sessões geradas relativamente a hoje (de -2 a +6 dias), para o protótipo ter sempre programação.
+export function seedSessions(): Session[] {
+  const list: Session[] = [];
+  const pool = movies.filter((m) => !m.comingSoon).slice(0, 24);
+  rooms.forEach((r, ri) => {
+    const format: SessionFormat = r.name === "IMAX" ? "IMAX" : ri % 3 === 2 ? "3D" : "2D";
+    const base = format === "IMAX" ? 5000 : format === "3D" ? 4000 : 3000;
+    for (let d = -2; d <= 6; d++) {
+      TIMES.forEach((time, ti) => {
+        const movie = pool[(ri * 5 + ti + (d + 2) * 2) % pool.length];
+        list.push({
+          id: `s-${r.id}-${dayOffset(d)}-${ti}`,
+          movieId: movie.id, cinemaId: r.cinemaId, roomId: r.id,
+          date: dayOffset(d), time, format, language: LANGS[(ri + ti) % 3],
+          price: base, vipPrice: base + 2000,
+        });
+      });
+    }
+  });
+  return list;
+}
+
+export function seedTickets(sessions: Session[]): Ticket[] {
+  const upcoming = sessions.find((s) => s.date === dayOffset(1) && s.cinemaId === "cn1")!;
+  const past = sessions.find((s) => s.date === dayOffset(-2) && s.cinemaId === "cn2")!;
+  return [
+    { id: "t1", code: "CMX-7K2Q9", userId: "u1", sessionId: upcoming.id, seats: ["E5", "E6"], total: upcoming.price * 2, status: "paid", paymentMethod: "mcx", createdAt: dayOffset(-1) },
+    { id: "t2", code: "CMX-3PZ81", userId: "u1", sessionId: past.id, seats: ["C4"], total: past.price, status: "used", paymentMethod: "card", createdAt: dayOffset(-4) },
+  ];
+}
+
+export const posts: Post[] = [
+  { id: "p1", cinemaId: "cn1", kind: "release", title: "Njinga em estreia no IMAX", body: "A epopeia da Rainha Njinga chega à sala IMAX do Kilamba com sessões todos os dias.", movieId: "m6", createdAt: dayOffset(-1) },
+  { id: "p2", cinemaId: "cn1", kind: "promo", title: "Terça-feira a meio preço", body: "Todas as terças, bilhetes 2D a metade do preço em todas as sessões antes das 18h.", createdAt: dayOffset(-3) },
+  { id: "p3", cinemaId: "cn2", kind: "news", title: "Nova Sala VIP", body: "Inaugurámos a Sala VIP com cadeiras reclináveis e serviço de bar no lugar.", createdAt: dayOffset(-5) },
+  { id: "p4", cinemaId: "cn3", kind: "release", title: "Santana — antestreia", body: "Antestreia exclusiva de Santana com a presença do elenco. Lugares limitados.", movieId: "m7", createdAt: dayOffset(-2) },
+  { id: "p5", cinemaId: "cn4", kind: "promo", title: "Pack família", body: "4 bilhetes + 2 pipocas grandes por um preço especial ao fim-de-semana.", createdAt: dayOffset(-6) },
 ];
 
 export const featuredMovies = movies.filter(m => m.featured);
 export const trendingMovies = movies.filter(m => m.trending);
 export const comingSoon = movies.filter(m => m.comingSoon);
 
-export const currentUser = users[0];
 
 export const getMovie = (id: string) => movies.find(m => m.id === id);
-export const getUser = (id: string) => users.find(u => u.id === id);
-export const getCinema = (id: string) => cinemas.find(c => c.id === id);
-export const getSession = (id: string) => sessions.find(s => s.id === id);
-export const reviewsForMovie = (id: string) => reviews.filter(r => r.movieId === id);
 export const commentsForReview = (id: string) => comments.filter(c => c.reviewId === id);

@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
-import { currentUser, getMovie } from "@/data/data";
+import { getMovie } from "@/data/data";
+import { useCurrentUser } from "@/lib/store";
+import { RequireAuth } from "@/components/cinema/RequireAuth";
 import { MovieCard } from "@/components/cinema/MovieCard";
 import i18n from "@/i18n/config";
 
@@ -11,11 +13,12 @@ export const Route = createFileRoute("/favorites")({
       { name: "description", content: i18n.t("favorites.empty") },
     ],
   }),
-  component: Favorites,
+  component: () => <RequireAuth><Favorites /></RequireAuth>,
 });
 
 function Favorites() {
   const { t } = useTranslation();
+  const currentUser = useCurrentUser()!;
   const favs = currentUser.favoriteMovies.map(getMovie).filter(Boolean);
 
   return (

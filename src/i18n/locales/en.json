@@ -9,7 +9,9 @@
     "favorites": "Favorites",
     "profile": "Profile",
     "settings": "Settings",
-    "menu": "Menu"
+    "menu": "Menu",
+    "myTickets": "My tickets",
+    "manage": "Management"
   },
   "header": {
     "searchPlaceholder": "Search films, directors…",
@@ -77,7 +79,11 @@
     "commentPlaceholder": "Share what you thought…",
     "publishReview": "Publish review",
     "postingAs": "Posting as {{name}}",
-    "moreLikeThis": "More like this"
+    "moreLikeThis": "More like this",
+    "favorite": "Favourite",
+    "favorited": "In favourites",
+    "noTrailer": "Trailer unavailable",
+    "loginToReview": "Sign in to post a review"
   },
   "tickets": {
     "title": "Book tickets",
@@ -151,7 +157,8 @@
   "cinemas": {
     "title": "Cinemas",
     "subtitle": "Where films breathe. Our partner venues.",
-    "rooms": "rooms"
+    "rooms": "rooms",
+    "allCities": "All cities"
   },
   "settings": {
     "title": "Settings",
@@ -190,6 +197,196 @@
     "ratingLabel": "Rating {{value}} of 5",
     "starLabel_one": "{{count}} star",
     "starLabel_other": "{{count}} stars"
+  },
+  "auth": {
+    "login": "Sign in",
+    "register": "Create account",
+    "logout": "Sign out",
+    "loginTitle": "Welcome back",
+    "registerTitle": "Create account",
+    "subtitle": "Buy tickets, save favourites and write reviews.",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "invalid": "Wrong email or password.",
+    "shortPassword": "Password needs at least 6 characters.",
+    "emailTaken": "An account with this email already exists.",
+    "noAccount": "No account yet? Sign up",
+    "haveAccount": "Already have an account? Sign in",
+    "demo": "Demo accounts (password 123456):",
+    "roles": {
+      "user": "Moviegoer",
+      "manager": "Cinema manager",
+      "admin": "Administrator"
+    }
+  },
+  "cinemaPage": {
+    "notFound": "Cinema not found",
+    "allCinemas": "All cinemas",
+    "tabs": {
+      "showing": "Now showing",
+      "soon": "Coming soon",
+      "news": "News",
+      "info": "Info"
+    },
+    "noNews": "No news yet.",
+    "about": "About",
+    "rooms": "Screens",
+    "seats": "seats",
+    "hours": "Opening hours",
+    "phone": "Phone",
+    "address": "Address"
+  },
+  "posts": {
+    "kinds": {
+      "news": "News",
+      "release": "Release",
+      "promo": "Promotion"
+    }
+  },
+  "amenities": {
+    "parking": "Parking",
+    "bar": "Bar",
+    "accessible": "Accessible",
+    "vip": "VIP seats",
+    "imax": "IMAX",
+    "3d": "3D"
+  },
+  "showtimes": {
+    "today": "Today",
+    "none": "No showtimes available right now.",
+    "comingSoon": "Coming soon — showtimes will be announced.",
+    "whereToWatch": "Where to watch",
+    "lang": {
+      "dub": "Dubbed",
+      "sub": "Subtitled",
+      "orig": "Original"
+    }
+  },
+  "checkout": {
+    "vip": "VIP",
+    "accessible": "Accessible",
+    "standard": "Standard",
+    "from": "from",
+    "unavailable": "This showtime is no longer available.",
+    "pickAnother": "Pick another showtime",
+    "maxSeats": "Up to {{count}} seats per order",
+    "payment": "Payment",
+    "methods": {
+      "mcx": "Multicaixa Express",
+      "reference": "Pay by reference",
+      "card": "Visa / Mastercard"
+    },
+    "methodHints": {
+      "mcx": "Confirm on your phone",
+      "reference": "Pay at an ATM or online banking",
+      "card": "Instant payment"
+    },
+    "pay": "Pay {{total}}",
+    "loginToPay": "Sign in to pay"
+  },
+  "myTickets": {
+    "title": "My tickets",
+    "subtitle": "Show the QR code at the screen entrance.",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "status": {
+      "paid": "Paid",
+      "pending": "Payment pending",
+      "used": "Used",
+      "cancelled": "Cancelled"
+    },
+    "pendingHint": "Entity {{entity}} · Reference {{reference}}. The ticket activates after payment.",
+    "simulatePayment": "Simulate payment",
+    "cancel": "Cancel ticket",
+    "confirmCancel": "Cancel this ticket? The seats will be released.",
+    "empty": "No tickets here."
+  },
+  "manage": {
+    "title": "Management",
+    "noCinema": "No cinema linked to this account.",
+    "tabs": {
+      "dashboard": "Overview",
+      "sessions": "Showtimes",
+      "rooms": "Screens",
+      "posts": "News",
+      "tickets": "Tickets",
+      "profile": "Cinema profile"
+    },
+    "stats": {
+      "revenue": "Revenue",
+      "online": "online sales",
+      "seatsSold": "Seats sold",
+      "sessionsToday": "Showtimes today",
+      "occupancy": "Occupancy",
+      "today": "today"
+    },
+    "nextSessions": "Today's upcoming showtimes",
+    "seeAll": "See all",
+    "noSessionsToday": "No more showtimes today.",
+    "noSessionsDay": "No showtimes on this day.",
+    "newSession": "New showtime",
+    "room": "Screen",
+    "format": "Format",
+    "language": "Version",
+    "soldOnline": "{{count}} sold online",
+    "sessionHasTickets": "This showtime already has tickets sold and can't be removed.",
+    "needRoom": "Create a screen first.",
+    "roomHasSessions": "This screen has upcoming showtimes and can't be removed.",
+    "newRoom": "New screen",
+    "rows": "Rows",
+    "seatsPerRow": "Seats per row",
+    "aisleAfter": "Aisle after seat",
+    "accessibleSeats": "Accessible seats",
+    "vipRows": "VIP rows (click to toggle)",
+    "add": "Add",
+    "save": "Save",
+    "saved": "Changes saved",
+    "edit": "Edit",
+    "delete": "Remove",
+    "cancel": "Cancel",
+    "confirmDelete": "Are you sure you want to remove this?",
+    "newPost": "New post",
+    "editPost": "Edit post",
+    "kind": "Type",
+    "postTitle": "Title",
+    "postBody": "Text",
+    "linkedMovie": "Linked film (optional)",
+    "publish": "Publish",
+    "validate": "Validate ticket",
+    "validateBtn": "Validate",
+    "validateHint": "Scan the customer's QR code or type the ticket code.",
+    "validation": {
+      "ok": "Valid. Entry recorded.",
+      "notFound": "Ticket not found.",
+      "used": "This ticket was already used.",
+      "cancelled": "This ticket was cancelled.",
+      "pending": "Payment still pending.",
+      "wrongCinema": "This ticket belongs to another cinema."
+    },
+    "allTickets": "Tickets sold",
+    "noTickets": "No tickets yet.",
+    "cols": {
+      "code": "Code",
+      "client": "Customer",
+      "film": "Film",
+      "session": "Showtime",
+      "seats": "Seats",
+      "total": "Total",
+      "status": "Status"
+    },
+    "newCinema": "New cinema",
+    "viewPublic": "View public page",
+    "fields": {
+      "name": "Name",
+      "chain": "Chain",
+      "city": "City",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email",
+      "openingHours": "Opening hours",
+      "description": "Description",
+      "amenities": "Amenities"
+    }
   }
-
 }

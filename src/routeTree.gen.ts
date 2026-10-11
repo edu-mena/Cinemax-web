@@ -13,12 +13,23 @@ import { Route as TicketsRouteImport } from './routes/tickets'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReviewsRouteImport } from './routes/reviews'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as MyTicketsRouteImport } from './routes/my-tickets'
+import { Route as ManageRouteImport } from './routes/manage'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as FavoritesRouteImport } from './routes/favorites'
 import { Route as ComingSoonRouteImport } from './routes/coming-soon'
-import { Route as CinemasRouteImport } from './routes/cinemas'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as MoviesIndexRouteImport } from './routes/movies.index'
+import { Route as ManageIndexRouteImport } from './routes/manage.index'
+import { Route as CinemasIndexRouteImport } from './routes/cinemas.index'
 import { Route as MoviesIdRouteImport } from './routes/movies.$id'
+import { Route as ManageTicketsRouteImport } from './routes/manage.tickets'
+import { Route as ManageSessionsRouteImport } from './routes/manage.sessions'
+import { Route as ManageRoomsRouteImport } from './routes/manage.rooms'
+import { Route as ManageProfileRouteImport } from './routes/manage.profile'
+import { Route as ManagePostsRouteImport } from './routes/manage.posts'
+import { Route as CinemasIdRouteImport } from './routes/cinemas.$id'
+import { Route as CheckoutSessionIdRouteImport } from './routes/checkout.$sessionId'
 
 const TicketsRoute = TicketsRouteImport.update({
   id: '/tickets',
@@ -40,6 +51,21 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyTicketsRoute = MyTicketsRouteImport.update({
+  id: '/my-tickets',
+  path: '/my-tickets',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ManageRoute = ManageRouteImport.update({
+  id: '/manage',
+  path: '/manage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FavoritesRoute = FavoritesRouteImport.update({
   id: '/favorites',
   path: '/favorites',
@@ -48,11 +74,6 @@ const FavoritesRoute = FavoritesRouteImport.update({
 const ComingSoonRoute = ComingSoonRouteImport.update({
   id: '/coming-soon',
   path: '/coming-soon',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CinemasRoute = CinemasRouteImport.update({
-  id: '/cinemas',
-  path: '/cinemas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -65,98 +86,212 @@ const MoviesIndexRoute = MoviesIndexRouteImport.update({
   path: '/movies/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManageIndexRoute = ManageIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ManageRoute,
+} as any)
+const CinemasIndexRoute = CinemasIndexRouteImport.update({
+  id: '/cinemas/',
+  path: '/cinemas/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MoviesIdRoute = MoviesIdRouteImport.update({
   id: '/movies/$id',
   path: '/movies/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ManageTicketsRoute = ManageTicketsRouteImport.update({
+  id: '/tickets',
+  path: '/tickets',
+  getParentRoute: () => ManageRoute,
+} as any)
+const ManageSessionsRoute = ManageSessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
+  getParentRoute: () => ManageRoute,
+} as any)
+const ManageRoomsRoute = ManageRoomsRouteImport.update({
+  id: '/rooms',
+  path: '/rooms',
+  getParentRoute: () => ManageRoute,
+} as any)
+const ManageProfileRoute = ManageProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ManageRoute,
+} as any)
+const ManagePostsRoute = ManagePostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => ManageRoute,
+} as any)
+const CinemasIdRoute = CinemasIdRouteImport.update({
+  id: '/cinemas/$id',
+  path: '/cinemas/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutSessionIdRoute = CheckoutSessionIdRouteImport.update({
+  id: '/checkout/$sessionId',
+  path: '/checkout/$sessionId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/cinemas': typeof CinemasRoute
   '/coming-soon': typeof ComingSoonRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
+  '/manage': typeof ManageRouteWithChildren
+  '/my-tickets': typeof MyTicketsRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/settings': typeof SettingsRoute
   '/tickets': typeof TicketsRoute
+  '/checkout/$sessionId': typeof CheckoutSessionIdRoute
+  '/cinemas/$id': typeof CinemasIdRoute
+  '/manage/posts': typeof ManagePostsRoute
+  '/manage/profile': typeof ManageProfileRoute
+  '/manage/rooms': typeof ManageRoomsRoute
+  '/manage/sessions': typeof ManageSessionsRoute
+  '/manage/tickets': typeof ManageTicketsRoute
   '/movies/$id': typeof MoviesIdRoute
+  '/cinemas/': typeof CinemasIndexRoute
+  '/manage/': typeof ManageIndexRoute
   '/movies/': typeof MoviesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/cinemas': typeof CinemasRoute
   '/coming-soon': typeof ComingSoonRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
+  '/my-tickets': typeof MyTicketsRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/settings': typeof SettingsRoute
   '/tickets': typeof TicketsRoute
+  '/checkout/$sessionId': typeof CheckoutSessionIdRoute
+  '/cinemas/$id': typeof CinemasIdRoute
+  '/manage/posts': typeof ManagePostsRoute
+  '/manage/profile': typeof ManageProfileRoute
+  '/manage/rooms': typeof ManageRoomsRoute
+  '/manage/sessions': typeof ManageSessionsRoute
+  '/manage/tickets': typeof ManageTicketsRoute
   '/movies/$id': typeof MoviesIdRoute
+  '/cinemas': typeof CinemasIndexRoute
+  '/manage': typeof ManageIndexRoute
   '/movies': typeof MoviesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/cinemas': typeof CinemasRoute
   '/coming-soon': typeof ComingSoonRoute
   '/favorites': typeof FavoritesRoute
+  '/login': typeof LoginRoute
+  '/manage': typeof ManageRouteWithChildren
+  '/my-tickets': typeof MyTicketsRoute
   '/profile': typeof ProfileRoute
   '/reviews': typeof ReviewsRoute
   '/settings': typeof SettingsRoute
   '/tickets': typeof TicketsRoute
+  '/checkout/$sessionId': typeof CheckoutSessionIdRoute
+  '/cinemas/$id': typeof CinemasIdRoute
+  '/manage/posts': typeof ManagePostsRoute
+  '/manage/profile': typeof ManageProfileRoute
+  '/manage/rooms': typeof ManageRoomsRoute
+  '/manage/sessions': typeof ManageSessionsRoute
+  '/manage/tickets': typeof ManageTicketsRoute
   '/movies/$id': typeof MoviesIdRoute
+  '/cinemas/': typeof CinemasIndexRoute
+  '/manage/': typeof ManageIndexRoute
   '/movies/': typeof MoviesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cinemas'
     | '/coming-soon'
     | '/favorites'
+    | '/login'
+    | '/manage'
+    | '/my-tickets'
     | '/profile'
     | '/reviews'
     | '/settings'
     | '/tickets'
+    | '/checkout/$sessionId'
+    | '/cinemas/$id'
+    | '/manage/posts'
+    | '/manage/profile'
+    | '/manage/rooms'
+    | '/manage/sessions'
+    | '/manage/tickets'
     | '/movies/$id'
+    | '/cinemas/'
+    | '/manage/'
     | '/movies/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/cinemas'
     | '/coming-soon'
     | '/favorites'
+    | '/login'
+    | '/my-tickets'
     | '/profile'
     | '/reviews'
     | '/settings'
     | '/tickets'
+    | '/checkout/$sessionId'
+    | '/cinemas/$id'
+    | '/manage/posts'
+    | '/manage/profile'
+    | '/manage/rooms'
+    | '/manage/sessions'
+    | '/manage/tickets'
     | '/movies/$id'
+    | '/cinemas'
+    | '/manage'
     | '/movies'
   id:
     | '__root__'
     | '/'
-    | '/cinemas'
     | '/coming-soon'
     | '/favorites'
+    | '/login'
+    | '/manage'
+    | '/my-tickets'
     | '/profile'
     | '/reviews'
     | '/settings'
     | '/tickets'
+    | '/checkout/$sessionId'
+    | '/cinemas/$id'
+    | '/manage/posts'
+    | '/manage/profile'
+    | '/manage/rooms'
+    | '/manage/sessions'
+    | '/manage/tickets'
     | '/movies/$id'
+    | '/cinemas/'
+    | '/manage/'
     | '/movies/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CinemasRoute: typeof CinemasRoute
   ComingSoonRoute: typeof ComingSoonRoute
   FavoritesRoute: typeof FavoritesRoute
+  LoginRoute: typeof LoginRoute
+  ManageRoute: typeof ManageRouteWithChildren
+  MyTicketsRoute: typeof MyTicketsRoute
   ProfileRoute: typeof ProfileRoute
   ReviewsRoute: typeof ReviewsRoute
   SettingsRoute: typeof SettingsRoute
   TicketsRoute: typeof TicketsRoute
+  CheckoutSessionIdRoute: typeof CheckoutSessionIdRoute
+  CinemasIdRoute: typeof CinemasIdRoute
   MoviesIdRoute: typeof MoviesIdRoute
+  CinemasIndexRoute: typeof CinemasIndexRoute
   MoviesIndexRoute: typeof MoviesIndexRoute
 }
 
@@ -190,6 +325,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my-tickets': {
+      id: '/my-tickets'
+      path: '/my-tickets'
+      fullPath: '/my-tickets'
+      preLoaderRoute: typeof MyTicketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/manage': {
+      id: '/manage'
+      path: '/manage'
+      fullPath: '/manage'
+      preLoaderRoute: typeof ManageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/favorites': {
       id: '/favorites'
       path: '/favorites'
@@ -202,13 +358,6 @@ declare module '@tanstack/react-router' {
       path: '/coming-soon'
       fullPath: '/coming-soon'
       preLoaderRoute: typeof ComingSoonRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cinemas': {
-      id: '/cinemas'
-      path: '/cinemas'
-      fullPath: '/cinemas'
-      preLoaderRoute: typeof CinemasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -225,6 +374,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoviesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/manage/': {
+      id: '/manage/'
+      path: '/'
+      fullPath: '/manage/'
+      preLoaderRoute: typeof ManageIndexRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/cinemas/': {
+      id: '/cinemas/'
+      path: '/cinemas'
+      fullPath: '/cinemas/'
+      preLoaderRoute: typeof CinemasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/movies/$id': {
       id: '/movies/$id'
       path: '/movies/$id'
@@ -232,19 +395,94 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoviesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/manage/tickets': {
+      id: '/manage/tickets'
+      path: '/tickets'
+      fullPath: '/manage/tickets'
+      preLoaderRoute: typeof ManageTicketsRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/manage/sessions': {
+      id: '/manage/sessions'
+      path: '/sessions'
+      fullPath: '/manage/sessions'
+      preLoaderRoute: typeof ManageSessionsRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/manage/rooms': {
+      id: '/manage/rooms'
+      path: '/rooms'
+      fullPath: '/manage/rooms'
+      preLoaderRoute: typeof ManageRoomsRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/manage/profile': {
+      id: '/manage/profile'
+      path: '/profile'
+      fullPath: '/manage/profile'
+      preLoaderRoute: typeof ManageProfileRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/manage/posts': {
+      id: '/manage/posts'
+      path: '/posts'
+      fullPath: '/manage/posts'
+      preLoaderRoute: typeof ManagePostsRouteImport
+      parentRoute: typeof ManageRoute
+    }
+    '/cinemas/$id': {
+      id: '/cinemas/$id'
+      path: '/cinemas/$id'
+      fullPath: '/cinemas/$id'
+      preLoaderRoute: typeof CinemasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout/$sessionId': {
+      id: '/checkout/$sessionId'
+      path: '/checkout/$sessionId'
+      fullPath: '/checkout/$sessionId'
+      preLoaderRoute: typeof CheckoutSessionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface ManageRouteChildren {
+  ManagePostsRoute: typeof ManagePostsRoute
+  ManageProfileRoute: typeof ManageProfileRoute
+  ManageRoomsRoute: typeof ManageRoomsRoute
+  ManageSessionsRoute: typeof ManageSessionsRoute
+  ManageTicketsRoute: typeof ManageTicketsRoute
+  ManageIndexRoute: typeof ManageIndexRoute
+}
+
+const ManageRouteChildren: ManageRouteChildren = {
+  ManagePostsRoute: ManagePostsRoute,
+  ManageProfileRoute: ManageProfileRoute,
+  ManageRoomsRoute: ManageRoomsRoute,
+  ManageSessionsRoute: ManageSessionsRoute,
+  ManageTicketsRoute: ManageTicketsRoute,
+  ManageIndexRoute: ManageIndexRoute,
+}
+
+const ManageRouteWithChildren =
+  ManageRoute._addFileChildren(ManageRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CinemasRoute: CinemasRoute,
   ComingSoonRoute: ComingSoonRoute,
   FavoritesRoute: FavoritesRoute,
+  LoginRoute: LoginRoute,
+  ManageRoute: ManageRouteWithChildren,
+  MyTicketsRoute: MyTicketsRoute,
   ProfileRoute: ProfileRoute,
   ReviewsRoute: ReviewsRoute,
   SettingsRoute: SettingsRoute,
   TicketsRoute: TicketsRoute,
+  CheckoutSessionIdRoute: CheckoutSessionIdRoute,
+  CinemasIdRoute: CinemasIdRoute,
   MoviesIdRoute: MoviesIdRoute,
+  CinemasIndexRoute: CinemasIndexRoute,
   MoviesIndexRoute: MoviesIndexRoute,
 }
 export const routeTree = rootRouteImport
